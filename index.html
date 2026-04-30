@@ -3,36 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClassicGO — Возвращаем Scaleform</title>
+    <title>ClassicGO — Scaleform Reborn</title>
     <style>
         :root {
-            --bg-main: #FDFBF7; /* Светлый беж */
-            --bg-alt: #F4EFE6; /* Чуть темнее для контраста */
-            --accent: #F5FFC0; /* Фирменный желто-зеленый */
+            --bg-overlay: rgba(253, 251, 247, 0.9);
+            --accent: #F5FFC0;
             --text-dark: #2C2A26;
-            --text-muted: #6B6862;
-            --btn-color: #558B2F; /* Классический зеленый */
+            --btn-color: #558B2F;
+            --card-bg: rgba(255, 255, 255, 0.8);
+        }
+
+        [data-theme="dark"] {
+            --bg-overlay: rgba(18, 18, 18, 0.85);
+            --accent: #d4e157;
+            --text-dark: #f0f0f0;
+            --btn-color: #7cb342;
+            --card-bg: rgba(44, 42, 38, 0.9);
         }
 
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-main);
+            font-family: 'Segoe UI', system-ui, sans-serif;
             color: var(--text-dark);
-            overflow: hidden; /* Скрываем стандартный скролл */
+            overflow: hidden;
+            transition: background 0.3s ease;
         }
 
-        /* Контейнер для фуллскрин-экранов с магнитной прокруткой */
+        /* Полноэкранный фон */
+        .bg-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('backgrounds.webp') no-repeat center center;
+            background-size: cover;
+            z-index: -1;
+            filter: blur(2px) brightness(0.8);
+        }
+
+        /* Переключатель темы */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--card-bg);
+            border: 2px solid var(--accent);
+            padding: 10px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
         .fullscreen-container {
             height: 100vh;
             overflow-y: scroll;
-            scroll-snap-type: y mandatory; /* Магнит к экранам по вертикали */
+            scroll-snap-type: y mandatory;
             scroll-behavior: smooth;
         }
 
-        /* Каждый экран занимает 100% высоты окна */
         section {
             height: 100vh;
             width: 100%;
@@ -40,286 +74,199 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            box-sizing: border-box;
+            background: var(--bg-overlay);
+            backdrop-filter: blur(10px);
             padding: 0 10%;
+            box-sizing: border-box;
         }
 
-        section:nth-child(even) { background-color: var(--bg-alt); }
-        section:nth-child(odd) { background-color: var(--bg-main); }
-
-        /* Внутренний контейнер экрана (разделение 50/50) */
         .slide-content {
             display: flex;
             align-items: center;
             justify-content: space-between;
             width: 100%;
-            max-width: 1400px;
-            gap: 50px;
+            max-width: 1200px;
+            gap: 40px;
         }
 
-        .text-side { flex: 1; }
-        .image-side { 
-            flex: 1; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 20px; 
-            align-items: center;
-        }
+        .text-side { flex: 1.2; }
+        .image-side { flex: 0.8; display: flex; flex-direction: column; gap: 15px; }
 
-        /* Типографика */
-        h1 {
-            font-size: 5rem;
-            margin: 0 0 20px 0;
-            text-transform: uppercase;
-            text-shadow: 4px 4px 0px var(--accent);
-            line-height: 1;
-        }
+        h1 { font-size: 5rem; margin: 0; text-transform: uppercase; border-bottom: 8px solid var(--accent); display: inline-block; }
+        h2 { font-size: 3rem; margin: 0 0 20px; color: var(--accent); text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+        p { font-size: 1.3rem; line-height: 1.6; }
 
-        h2 {
-            font-size: 3.5rem;
-            margin: 0 0 20px 0;
-            position: relative;
-            display: inline-block;
-        }
-
-        /* Желтое подчеркивание заголовков */
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: 10px;
-            left: 0;
-            width: 100%;
-            height: 20px;
-            background-color: var(--accent);
-            z-index: -1;
-        }
-
-        p { font-size: 1.4rem; color: var(--text-muted); line-height: 1.5; }
-        
-        p.joke {
-            font-size: 1.6rem;
-            font-style: italic;
-            border-left: 5px solid var(--accent);
-            padding-left: 20px;
-        }
-
-        /* Интерактивные картинки */
-        .image-side img {
-            max-width: 90%;
-            max-height: 40vh;
-            border-radius: 12px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: crosshair;
-        }
-
-        .image-side img:hover {
-            transform: scale(1.05) translateY(-10px);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
-            z-index: 10;
-        }
-
-        /* Кнопка */
         .btn {
             display: inline-block;
-            background-color: var(--btn-color);
-            color: #fff;
-            padding: 20px 45px;
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-decoration: none;
+            background: var(--btn-color);
+            color: white;
+            padding: 18px 40px;
             border-radius: 50px;
-            margin-top: 20px;
+            text-decoration: none;
+            font-size: 1.4rem;
+            font-weight: bold;
             transition: 0.3s;
-            box-shadow: 0 10px 20px rgba(85, 139, 47, 0.3);
-        }
-
-        .btn:hover {
-            background-color: #33691E;
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(85, 139, 47, 0.5);
-        }
-
-        /* Блок с кодом */
-        .code-box {
-            background: var(--text-dark);
-            color: var(--accent);
-            padding: 20px 30px;
-            border-radius: 10px;
-            font-family: 'Consolas', monospace;
-            font-size: 1.5rem;
-            display: inline-block;
             margin-top: 20px;
-            box-shadow: inset 0 5px 15px rgba(0,0,0,0.5);
         }
 
-        /* Горизонтальная галерея (Слайдер) */
-        .gallery-wrapper {
-            width: 100vw;
-            padding: 0 10%;
-        }
-        
-        .gallery-container {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory; /* Магнит по горизонтали */
-            gap: 40px;
-            padding: 40px 0;
-            scrollbar-width: thin;
-            scrollbar-color: var(--btn-color) var(--bg-alt);
-        }
+        .btn:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
 
-        .gallery-container::-webkit-scrollbar { height: 12px; }
-        .gallery-container::-webkit-scrollbar-thumb { background: var(--btn-color); border-radius: 10px; }
-
-        .gallery-item {
-            flex: 0 0 70vw; /* Каждая картинка занимает 70% ширины экрана */
-            scroll-snap-align: center;
-        }
-
-        .gallery-item img {
+        .image-side img {
             width: 100%;
             border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
             border: 2px solid var(--accent);
-        }
-
-        /* Индикатор скролла вниз */
-        .scroll-down {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 2rem;
-            color: var(--text-muted);
-            animation: bounce 2s infinite;
-            pointer-events: none;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
-            40% { transform: translateY(-20px) translateX(-50%); }
-            60% { transform: translateY(-10px) translateX(-50%); }
-        }
-
-        /* Навигация точками сбоку */
-        .nav-dots {
-            position: fixed;
-            right: 30px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            z-index: 100;
-        }
-
-        .nav-dots a {
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            background-color: #D7D2C8;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             transition: 0.3s;
         }
 
-        .nav-dots a:hover {
-            background-color: var(--btn-color);
-            transform: scale(1.5);
+        .image-side img:hover { transform: scale(1.03); }
+
+        /* Галерея-слайдер */
+        .slider {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            border: 3px solid var(--accent);
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide { min-width: 100%; }
+        .slide img { width: 100%; display: block; }
+
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .nav-btn {
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            font-size: 2rem;
+        }
+
+        .code-box {
+            background: #000;
+            color: var(--accent);
+            padding: 15px;
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 1.2rem;
+            margin-top: 15px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Боковая навигация -->
-    <div class="nav-dots">
-        <a href="#hero" title="Главная"></a>
-        <a href="#step1" title="Шаг 1"></a>
-        <a href="#step2" title="Шаг 2"></a>
-        <a href="#step3" title="Шаг 3"></a>
-        <a href="#gallery" title="Галерея"></a>
-    </div>
+    <div class="bg-fixed"></div>
+    <button class="theme-toggle" onclick="toggleTheme()">🌓 Сменить тему</button>
 
-    <!-- Основной контейнер с магнитным вертикальным скроллом -->
     <div class="fullscreen-container">
-
-        <!-- Экран 1: Главная -->
+        <!-- Главная -->
         <section id="hero">
             <div class="slide-content">
                 <div class="text-side">
                     <h1>ClassicGO</h1>
-                    <p class="joke">Panorama UI создана для планшетов. Мы играем на ПК.<br>Возвращаем тот самый ламповый, не лагающий Scaleform. Никакого мыла, только хардкор.</p>
-                    <a href="https://github.com/sanyaleks2012-lab/ClassicGO/raw/refs/heads/main/oldhud.7z" class="btn">📦 Скачать oldhud.7z</a>
+                    <p>Panorama UI — это для мобилок. Настоящие олдфаги выбирают стабильность и стиль Scaleform. Верни легендарный HUD прямо сейчас.</p>
+                    <a href="https://github.com/sanyaleks2012-lab/ClassicGO/raw/refs/heads/main/oldhud.7z" class="btn">📦 Скачать патч</a>
                 </div>
             </div>
-            <div class="scroll-down">↓ Скролль вниз ↓</div>
         </section>
 
-        <!-- Экран 2: Установка -->
+        <!-- Шаг 1 -->
         <section id="step1">
             <div class="slide-content">
                 <div class="text-side">
-                    <h2>01. Ядро</h2>
-                    <p>Распакуй скачанный архив.</p>
-                    <p>Перенеси все файлы напрямую в папку <code>migi/csgo</code>. Структура файлов должна быть как на правом скриншоте. Если Windows спросит про замену — смело жми «Да». Мы здесь, чтобы ломать новое и строить старое.</p>
+                    <h2>01. Файлы</h2>
+                    <p>Закинь всё содержимое архива в папку <code>migi/csgo</code>. <br>Соглашайся на все замены. Старый интерфейс требует жертв (в виде удаления нового).</p>
                 </div>
                 <div class="image-side">
-                    <img src="assets/lookToCSGO.png" alt="Файлы мода">
-                    <img src="assets/CoreCSGO.png" alt="Куда кидать">
-                    <img src="assets/Replace.png" alt="Замена файлов">
+                    <img src="assets/CoreCSGO.png" alt="Files">
+                    <img src="assets/Replace.png" alt="Replace">
                 </div>
             </div>
         </section>
 
-        <!-- Экран 3: MIGI -->
+        <!-- Шаг 2 -->
         <section id="step2">
             <div class="slide-content">
                 <div class="text-side">
-                    <h2>02. Сборка MIGI</h2>
-                    <p class="joke">Если запустишь без прав Администратора — магия не сработает.</p>
-                    <p>Открывай MIGI. Обязательно от имени Админа. Жми жирную кнопку <strong>Build MIGI</strong> и жди, пока программа переварит патчи интерфейса.</p>
+                    <h2>02. Сборка</h2>
+                    <p>Запусти <strong>MIGI</strong> от имени Администратора. Нажми <strong>Build MIGI</strong>. Пока идет полоска загрузки, вспомни времена, когда в CS не было кейсов.</p>
                 </div>
                 <div class="image-side">
-                    <img src="assets/runMigiAsAdmin.png" alt="Права админа">
-                    <img src="assets/BuildMIGI.png" alt="Сборка">
+                    <img src="assets/BuildMIGI.png" alt="MIGI Build">
                 </div>
             </div>
         </section>
 
-        <!-- Экран 4: Запуск -->
+        <!-- Шаг 3 -->
         <section id="step3">
             <div class="slide-content">
                 <div class="text-side">
-                    <h2>03. Параметры</h2>
-                    <p>Чтобы игра забыла про современный UI, нужно дать ей правильную команду.</p>
-                    <p>Открой свойства CS:GO в Steam и пропиши эти параметры запуска:</p>
+                    <h2>03. Финиш</h2>
+                    <p>В параметрах запуска Steam укажи:</p>
                     <div class="code-box">-game migi/csgo -language english</div>
+                    <p style="margin-top:20px; font-style: italic;">И больше не трогай Panorama UI руками.</p>
                 </div>
                 <div class="image-side">
-                    <img src="assets/commadLine.png" alt="Строка запуска">
-                    <img src="assets/carefulBro.png" alt="Внимание">
+                    <img src="assets/commadLine.png" alt="Command Line">
                 </div>
             </div>
         </section>
 
-        <!-- Экран 5: Галерея (с горизонтальным скроллом) -->
+        <!-- Галерея -->
         <section id="gallery">
-            <div class="gallery-wrapper">
-                <h2 style="text-align: center; width: 100%;">Результат (Скролль вправо →)</h2>
-                <div class="gallery-container">
-                    <div class="gallery-item"><img src="assets/HeadUpDisplay_demo.JPG" alt="HUD"></div>
-                    <div class="gallery-item"><img src="assets/WinPanel.JPG" alt="Win Panel"></div>
-                    <div class="gallery-item"><img src="assets/KillFeed.JPG" alt="Killfeed"></div>
-                    <div class="gallery-item"><img src="assets/weaponInspect.JPG" alt="Weapon Inspect"></div>
-                    <div class="gallery-item"><img src="assets/knifeinspect.JPG" alt="Knife Inspect"></div>
-                    <div class="gallery-item"><img src="assets/defuse.JPG" alt="Defuse"></div>
-                    <div class="gallery-item"><img src="assets/alerts.JPG" alt="Alerts"></div>
-                    <div class="gallery-item"><img src="assets/MusicKitInspect.JPG" alt="Music Kit"></div>
+            <div style="width: 100%; max-width: 1000px;">
+                <h2 style="text-align: center;">Галерея Ностальгии</h2>
+                <div class="slider">
+                    <div class="slides" id="slider-track">
+                        <div class="slide"><img src="assets/HeadUpDisplay_demo.JPG"></div>
+                        <div class="slide"><img src="assets/WinPanel.JPG"></div>
+                        <div class="slide"><img src="assets/KillFeed.JPG"></div>
+                        <div class="slide"><img src="assets/weaponInspect.JPG"></div>
+                        <div class="slide"><img src="assets/knifeinspect.JPG"></div>
+                    </div>
+                    <div class="slider-nav">
+                        <button class="nav-btn" onclick="moveSlide(-1)">❮</button>
+                        <button class="nav-btn" onclick="moveSlide(1)">❯</button>
+                    </div>
                 </div>
             </div>
         </section>
-
     </div>
 
+    <script>
+        // Логика переключения темы
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                body.removeAttribute('data-theme');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+            }
+        }
+
+        // Логика слайдера
+        let currentSlide = 0;
+        function moveSlide(direction) {
+            const track = document.getElementById('slider-track');
+            const totalSlides = track.children.length;
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+    </script>
 </body>
 </html>
