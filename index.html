@@ -17,7 +17,6 @@
             --accent-green: #9ece6a;
             --border: #414868;
             --sidebar-width: 280px;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         * { box-sizing: border-box; transition: all 0.2s ease-in-out; }
@@ -63,27 +62,19 @@
             font-weight: 900;
         }
 
-        .nav-menu {
-            list-style: none;
-            padding: 20px 0;
-            margin: 0;
-        }
-
+        .nav-menu { list-style: none; padding: 20px 0; margin: 0; }
         .nav-item a {
             display: block;
             padding: 14px 30px;
             color: var(--text-main);
             text-decoration: none;
             font-size: 0.85rem;
-            font-weight: 500;
             border-left: 3px solid transparent;
         }
-
         .nav-item a:hover {
             background: rgba(187, 154, 247, 0.05);
             color: var(--accent-cyan);
             border-left: 3px solid var(--accent-cyan);
-            padding-left: 35px;
         }
 
         /* Main Content */
@@ -100,25 +91,11 @@
             border-radius: 16px;
             padding: 40px;
             margin-bottom: 40px;
-            box-shadow: var(--shadow);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        h2 {
-            color: var(--accent-cyan);
-            font-size: 1.6rem;
-            margin-top: 0;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        h2::before {
-            content: '>';
-            color: var(--accent-green);
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        p { color: var(--text-bright); font-size: 1.05rem; margin-bottom: 20px; }
+        h2 { color: var(--accent-cyan); font-size: 1.6rem; margin-top: 0; display: flex; gap: 12px; }
+        h2::before { content: '>'; color: var(--accent-green); font-family: monospace; }
 
         .img-container {
             background: #0f0f14;
@@ -127,12 +104,20 @@
             margin: 25px 0;
             border: 1px solid var(--border);
         }
+        .img-container img { width: 100%; border-radius: 8px; display: block; }
 
-        .img-container img {
-            width: 100%;
+        .download-btn {
+            display: inline-block;
+            background: var(--accent-green);
+            color: var(--bg-main);
+            padding: 15px 30px;
             border-radius: 8px;
-            display: block;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 20px 0;
+            text-transform: uppercase;
         }
+        .download-btn:hover { background: var(--accent-cyan); transform: scale(1.05); }
 
         .code-box {
             background: #16161e;
@@ -141,116 +126,87 @@
             border-left: 4px solid var(--accent-pink);
             color: var(--accent-pink);
             font-family: 'JetBrains Mono', monospace;
-            font-size: 1rem;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+            margin: 15px 0;
         }
 
-        /* Gallery */
+        /* Memes section */
+        .meme-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .meme-card {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid var(--accent-magenta);
+            text-align: center;
+        }
+        .meme-card p { font-size: 0.9rem; color: var(--accent-magenta); margin-top: 10px; font-weight: bold; }
+
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
         }
-
-        .gallery-card {
-            background: rgba(0,0,0,0.2);
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-        }
-
-        .gallery-card img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
-
-        .gallery-card:hover img {
-            filter: saturate(1.2);
-        }
-
-        .gallery-info {
-            padding: 15px;
-            text-align: center;
-            font-size: 0.8rem;
-            color: var(--accent-magenta);
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .alert-box {
-            border: 1px solid var(--accent-pink);
-            background: rgba(247, 118, 142, 0.05);
-            padding: 25px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 25px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px;
-            color: #414868;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-        }
-
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-main); }
-        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+        .gallery-card { background: rgba(0,0,0,0.2); border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+        .gallery-card img { width: 100%; height: 180px; object-fit: cover; }
+        .gallery-info { padding: 15px; text-align: center; font-size: 0.8rem; color: var(--accent-magenta); font-family: monospace; }
     </style>
 </head>
 <body>
 
     <nav class="sidebar">
         <div class="sidebar-header">
-            <!-- Все изображения теперь в папке assets -->
             <img src="assets/logo.png" alt="Logo" class="logo">
             <h1>ClassicGO</h1>
         </div>
         <ul class="nav-menu">
-            <li class="nav-item"><a href="#intro">Обзор проекта</a></li>
-            <li class="nav-item"><a href="#install">Установка HUD</a></li>
-            <li class="nav-item"><a href="#migi">Сборка MIGI</a></li>
-            <li class="nav-item"><a href="#visuals">Визуальные ассеты</a></li>
+            <li class="nav-item"><a href="#download">Загрузка</a></li>
+            <li class="nav-item"><a href="#install">Установка</a></li>
+            <li class="nav-item"><a href="#memes">Мемы / CS2 vs CS:GO</a></li>
+            <li class="nav-item"><a href="#visuals">Ассеты</a></li>
         </ul>
     </nav>
 
     <main class="main-content">
         
-        <section id="intro" class="card">
-            <h2>Initialization</h2>
-            <p>ClassicGO — это комплексная модификация, возвращающая классический Scaleform HUD в современную среду CS:GO.</p>
+        <section id="download" class="card">
+            <h2>Source Retrieval</h2>
+            <p>Скачайте последнюю версию архива <b>oldhud.7z</b> для начала процесса восстановления[cite: 2].</p>
+            <a href="https://github.com/sanyaleks2012-lab/ClassicGO/raw/refs/heads/main/oldhud.7z" class="download-btn">Скачать OldHUD.7z</a>
             <div class="img-container">
                 <img src="assets/HeadUpDisplay_demo.JPG" alt="HUD Demo">
-            </div>
-            <div class="alert-box">
-                <img src="assets/carefulBro.png" style="width: 70px;" alt="Careful">
-                <div>
-                    <strong style="color: var(--accent-pink); display: block; margin-bottom: 5px;">Внимание!</strong>
-                    <span style="color: var(--text-main);">Не заменяйте оригинальные файлы игры напрямую. Используйте систему MIGI.</span>
-                </div>
             </div>
         </section>
 
         <section id="install" class="card">
             <h2>Directory Setup</h2>
-            <p>Расположите файлы мода по следующему пути в папке с игрой:</p>
+            <p>Убедитесь, что файлы расположены по корректному пути для Legacy-версии[cite: 2]:</p>
             <div class="code-box">.../csgo legacy/migi/csgo</div>
-            <div class="img-container"><img src="assets/lookToCSGO.png" alt="Step 1"></div>
-            <div class="img-container"><img src="assets/CoreCSGO.png" alt="Step 2"></div>
-            <p>При распаковке обязательно подтвердите перезапись существующих файлов.</p>
-            <div class="img-container"><img src="assets/Replace.png" alt="Step 3"></div>
+            <div class="img-container"><img src="assets/lookToCSGO.png"></div>
+            <div class="img-container"><img src="assets/CoreCSGO.png"></div>
+            <p>При распаковке обязательно подтвердите перезапись[cite: 2].</p>
+            <div class="img-container"><img src="assets/Replace.png"></div>
         </section>
 
-        <section id="migi" class="card">
-            <h2>Building Process</h2>
-            <p>Запуск и компиляция через лаунчер MIGI:</p>
-            <div class="img-container"><img src="assets/runMigiAsAdmin.png" alt="Admin Run"></div>
-            <div class="img-container"><img src="assets/BuildMIGI.png" alt="Build"></div>
-            <p>Параметры запуска в Steam:</p>
-            <div class="code-box">-game migi/csgo -language english</div>
-            <div class="img-container"><img src="assets/commadLine.png" alt="Steam Settings"></div>
+        <section id="memes" class="card">
+            <h2>Community Content</h2>
+            <div class="meme-grid">
+                <div class="meme-card">
+                    <img src="assets/meme1.png" width="100%" alt="CS2 vs CSGO">
+                    <p>Битва говна и жидкого золота (не моча)</p>
+                </div>
+                <div class="meme-card">
+                    <img src="assets/meme2.png" width="100%" alt="Subtick">
+                    <p>Когда сабтик зарегал попадание в 2027-м</p>
+                </div>
+                <div class="meme-card">
+                    <img src="assets/carefulBro.png" width="100%" alt="Classic Warning">
+                    <p>Лицо чела, который зашел в CS2 после Scaleform</p>
+                </div>
+            </div>
         </section>
 
         <section id="visuals" class="card">
@@ -260,14 +216,11 @@
                 <div class="gallery-card"><img src="assets/KillFeed.JPG"><div class="gallery-info">kill_feed.ui</div></div>
                 <div class="gallery-card"><img src="assets/alerts.JPG"><div class="gallery-info">alerts.ui</div></div>
                 <div class="gallery-card"><img src="assets/defuse.JPG"><div class="gallery-info">defuse_timer.ui</div></div>
-                <div class="gallery-card"><img src="assets/weaponInspect.JPG"><div class="gallery-info">inspect_weapon.ui</div></div>
-                <div class="gallery-card"><img src="assets/knifeinspect.JPG"><div class="gallery-info">inspect_knife.ui</div></div>
-                <div class="gallery-card"><img src="assets/MusicKitInspect.JPG"><div class="gallery-info">musickit.ui</div></div>
             </div>
         </section>
 
         <footer>
-            &copy; 2026 ClassicGO Restoration | TokyoNight.theme.css
+            &copy; 2026 ClassicGO Restoration | TokyoNight.theme[cite: 3]
         </footer>
     </main>
 
