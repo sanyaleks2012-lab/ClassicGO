@@ -3,264 +3,323 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClassicGO — Возвращаем тот самый HUD</title>
+    <title>ClassicGO — Возвращаем Scaleform</title>
     <style>
-        /* Основные цвета и шрифты */
         :root {
-            --bg-color: #FDFBF7; /* Приятный светлый беж */
-            --accent-color: #F5FFC0; /* Тот самый желто-зеленый */
-            --text-main: #3E3B35;
+            --bg-main: #FDFBF7; /* Светлый беж */
+            --bg-alt: #F4EFE6; /* Чуть темнее для контраста */
+            --accent: #F5FFC0; /* Фирменный желто-зеленый */
+            --text-dark: #2C2A26;
             --text-muted: #6B6862;
-            --card-bg: #FFFFFF;
-            --btn-bg: #7CB342; /* Цвет кнопки (классический зеленый CS) */
-            --btn-hover: #689F38;
+            --btn-color: #558B2F; /* Классический зеленый */
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
+        body, html {
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
-            line-height: 1.6;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            overflow: hidden; /* Скрываем стандартный скролл */
         }
 
-        /* Анимации */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Контейнер для фуллскрин-экранов с магнитной прокруткой */
+        .fullscreen-container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory; /* Магнит к экранам по вертикали */
+            scroll-behavior: smooth;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
-        }
-
-        /* Шапка сайта */
-        .hero {
-            background: linear-gradient(135deg, #F3EFE6 0%, var(--accent-color) 100%);
-            padding: 80px 20px;
-            text-align: center;
-            border-bottom: 3px solid #EBE4D5;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-        }
-
-        .hero h1 {
-            font-size: 3em;
-            margin: 0 0 15px 0;
-            color: #2C2A26;
-            letter-spacing: -1px;
-        }
-
-        .hero p.joke {
-            font-size: 1.2em;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 30px auto;
-            font-style: italic;
-        }
-
-        /* Кнопка скачивания */
-        .download-btn {
-            display: inline-flex;
-            align-items: center;
-            background-color: var(--btn-bg);
-            color: white;
-            padding: 16px 35px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 1.2em;
-            font-weight: bold;
-            box-shadow: 0 8px 20px rgba(124, 179, 66, 0.4);
-            transition: all 0.3s ease;
-            animation: pulse 3s infinite ease-in-out;
-        }
-
-        .download-btn:hover {
-            background-color: var(--btn-hover);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 25px rgba(124, 179, 66, 0.5);
-        }
-
-        /* Контейнер и карточки шагов */
-        .container {
-            max-width: 850px;
-            margin: -30px auto 50px auto;
-            padding: 0 20px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .step {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 35px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.04);
-            border-left: 8px solid var(--accent-color);
-            opacity: 0;
-            animation: fadeInUp 0.8s ease forwards;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .step:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 50px rgba(0,0,0,0.08);
-        }
-
-        /* Задержки для поочередного появления карточек */
-        .step:nth-child(1) { animation-delay: 0.1s; }
-        .step:nth-child(2) { animation-delay: 0.2s; }
-        .step:nth-child(3) { animation-delay: 0.3s; }
-        .step:nth-child(4) { animation-delay: 0.4s; }
-        .step:nth-child(5) { animation-delay: 0.5s; }
-
-        h2 {
-            color: #2C2A26;
-            margin-top: 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .step-num {
-            background: var(--accent-color);
-            color: #5A5E32;
-            width: 35px;
-            height: 35px;
+        /* Каждый экран занимает 100% высоты окна */
+        section {
+            height: 100vh;
+            width: 100%;
+            scroll-snap-align: start;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
-            font-size: 0.9em;
+            position: relative;
+            box-sizing: border-box;
+            padding: 0 10%;
         }
 
-        p { margin: 15px 0; }
+        section:nth-child(even) { background-color: var(--bg-alt); }
+        section:nth-child(odd) { background-color: var(--bg-main); }
 
-        img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            margin: 20px 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            border: 1px solid #F0EEEA;
-            transition: transform 0.3s ease;
+        /* Внутренний контейнер экрана (разделение 50/50) */
+        .slide-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1400px;
+            gap: 50px;
         }
 
-        img:hover {
-            transform: scale(1.02);
+        .text-side { flex: 1; }
+        .image-side { 
+            flex: 1; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 20px; 
+            align-items: center;
         }
 
-        code {
-            background: #F3EFE6;
-            color: #B22222;
-            padding: 3px 8px;
-            border-radius: 5px;
-            font-family: Consolas, monospace;
+        /* Типографика */
+        h1 {
+            font-size: 5rem;
+            margin: 0 0 20px 0;
+            text-transform: uppercase;
+            text-shadow: 4px 4px 0px var(--accent);
+            line-height: 1;
+        }
+
+        h2 {
+            font-size: 3.5rem;
+            margin: 0 0 20px 0;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Желтое подчеркивание заголовков */
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background-color: var(--accent);
+            z-index: -1;
+        }
+
+        p { font-size: 1.4rem; color: var(--text-muted); line-height: 1.5; }
+        
+        p.joke {
+            font-size: 1.6rem;
+            font-style: italic;
+            border-left: 5px solid var(--accent);
+            padding-left: 20px;
+        }
+
+        /* Интерактивные картинки */
+        .image-side img {
+            max-width: 90%;
+            max-height: 40vh;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: crosshair;
+        }
+
+        .image-side img:hover {
+            transform: scale(1.05) translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        /* Кнопка */
+        .btn {
+            display: inline-block;
+            background-color: var(--btn-color);
+            color: #fff;
+            padding: 20px 45px;
+            font-size: 1.5rem;
             font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            margin-top: 20px;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(85, 139, 47, 0.3);
         }
 
-        .command-box {
-            background: #2C2A26;
-            color: var(--accent-color);
-            padding: 20px;
+        .btn:hover {
+            background-color: #33691E;
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(85, 139, 47, 0.5);
+        }
+
+        /* Блок с кодом */
+        .code-box {
+            background: var(--text-dark);
+            color: var(--accent);
+            padding: 20px 30px;
             border-radius: 10px;
-            font-family: Consolas, monospace;
-            font-size: 1.1em;
-            text-align: center;
-            box-shadow: inset 0 3px 10px rgba(0,0,0,0.5);
-            margin: 20px 0;
+            font-family: 'Consolas', monospace;
+            font-size: 1.5rem;
+            display: inline-block;
+            margin-top: 20px;
+            box-shadow: inset 0 5px 15px rgba(0,0,0,0.5);
         }
 
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin-top: 25px;
+        /* Горизонтальная галерея (Слайдер) */
+        .gallery-wrapper {
+            width: 100vw;
+            padding: 0 10%;
+        }
+        
+        .gallery-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory; /* Магнит по горизонтали */
+            gap: 40px;
+            padding: 40px 0;
+            scrollbar-width: thin;
+            scrollbar-color: var(--btn-color) var(--bg-alt);
         }
 
-        .gallery img { margin: 0; width: 100%; height: 100%; object-fit: cover; }
+        .gallery-container::-webkit-scrollbar { height: 12px; }
+        .gallery-container::-webkit-scrollbar-thumb { background: var(--btn-color); border-radius: 10px; }
 
-        footer {
-            text-align: center;
-            padding: 40px 20px;
+        .gallery-item {
+            flex: 0 0 70vw; /* Каждая картинка занимает 70% ширины экрана */
+            scroll-snap-align: center;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border: 2px solid var(--accent);
+        }
+
+        /* Индикатор скролла вниз */
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
             color: var(--text-muted);
-            font-size: 0.9em;
+            animation: bounce 2s infinite;
+            pointer-events: none;
         }
 
-        .highlight { background: var(--accent-color); padding: 0 5px; border-radius: 3px; }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-20px) translateX(-50%); }
+            60% { transform: translateY(-10px) translateX(-50%); }
+        }
+
+        /* Навигация точками сбоку */
+        .nav-dots {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .nav-dots a {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #D7D2C8;
+            transition: 0.3s;
+        }
+
+        .nav-dots a:hover {
+            background-color: var(--btn-color);
+            transform: scale(1.5);
+        }
     </style>
 </head>
 <body>
 
-    <div class="hero">
-        <h1>ClassicGO: Old HUD</h1>
-        <p class="joke">
-            Устал от Panorama UI, который выглядит как меню интернет-магазина и жрет FPS? <br>
-            Возвращаем тот самый ламповый Scaleform. Никаких свистелок, только хардкор и ностальгия.
-        </p>
-        <a href="https://github.com/sanyaleks2012-lab/ClassicGO/raw/refs/heads/main/oldhud.7z" class="download-btn">
-            📦 Скачать oldhud.7z
-        </a>
+    <!-- Боковая навигация -->
+    <div class="nav-dots">
+        <a href="#hero" title="Главная"></a>
+        <a href="#step1" title="Шаг 1"></a>
+        <a href="#step2" title="Шаг 2"></a>
+        <a href="#step3" title="Шаг 3"></a>
+        <a href="#gallery" title="Галерея"></a>
     </div>
 
-    <div class="container">
-        
-        <div class="step">
-            <h2><span class="step-num">1</span> Распаковка</h2>
-            <p>Скачайте архив по кнопке выше и распакуйте его содержимое. Разумеется, у вас уже должен быть установлен <strong>MIGI</strong>. Если его нет — вы знаете, что гуглить.</p>
-            <img src="assets/lookToCSGO.png" alt="Файлы мода">
-        </div>
+    <!-- Основной контейнер с магнитным вертикальным скроллом -->
+    <div class="fullscreen-container">
 
-        <div class="step">
-            <h2><span class="step-num">2</span> Установка Core</h2>
-            <p>Закидываем файлы в папку <code>migi/csgo</code>. Структура должна выглядеть как на скриншоте. Да, прямо туда.</p>
-            <img src="assets/CoreCSGO.png" alt="Папка Core CSGO">
-            <p>Если Windows спросит, заменять ли файлы — жмем <strong>Да</strong>. Мы здесь для того, чтобы всё поменять.</p>
-            <img src="assets/Replace.png" alt="Замена файлов">
-        </div>
-
-        <div class="step">
-            <h2><span class="step-num">3</span> Сборка в MIGI</h2>
-            <p>Запускаем MIGI. <span class="highlight">Обязательно от имени Администратора!</span> Иначе патчи не применятся, и магии не случится.</p>
-            <img src="assets/runMigiAsAdmin.png" alt="Запуск от имени администратора">
-            <p>Жмем жирную кнопку <strong>Build MIGI</strong> и ждем, пока программа переварит файлы.</p>
-            <img src="assets/BuildMIGI.png" alt="Кнопка Build MIGI">
-        </div>
-
-        <div class="step">
-            <h2><span class="step-num">4</span> Параметры запуска</h2>
-            <p>Чтобы игра поняла, что мы возвращаемся в золотую эру CS:GO, нужно прописать в Steam параметры запуска:</p>
-            <div class="command-box">
-                -game migi/csgo -language english
+        <!-- Экран 1: Главная -->
+        <section id="hero">
+            <div class="slide-content">
+                <div class="text-side">
+                    <h1>ClassicGO</h1>
+                    <p class="joke">Panorama UI создана для планшетов. Мы играем на ПК.<br>Возвращаем тот самый ламповый, не лагающий Scaleform. Никакого мыла, только хардкор.</p>
+                    <a href="https://github.com/sanyaleks2012-lab/ClassicGO/raw/refs/heads/main/oldhud.7z" class="btn">📦 Скачать oldhud.7z</a>
+                </div>
             </div>
-            <img src="assets/commadLine.png" alt="Параметры запуска">
-            <img src="assets/carefulBro.png" alt="Внимание">
-        </div>
+            <div class="scroll-down">↓ Скролль вниз ↓</div>
+        </section>
 
-        <div class="step">
-            <h2><span class="step-num">5</span> Результат</h2>
-            <p>Заходим в игру и наслаждаемся. Больше никакого мыльного текста и перегруженных меню. Только чистый киберспорт.</p>
-            <img src="assets/HeadUpDisplay_demo.JPG" alt="Демонстрация HUD">
-            
-            <div class="gallery">
-                <img src="assets/WinPanel.JPG" alt="Панель победы">
-                <img src="assets/KillFeed.JPG" alt="Киллфид">
-                <img src="assets/weaponInspect.JPG" alt="Осмотр оружия">
-                <img src="assets/defuse.JPG" alt="Разминирование">
-                <img src="assets/alerts.JPG" alt="Уведомления">
-                <img src="assets/knifeinspect.JPG" alt="Осмотр ножа">
-                <img src="assets/MusicKitInspect.JPG" alt="Музыкальный набор">
+        <!-- Экран 2: Установка -->
+        <section id="step1">
+            <div class="slide-content">
+                <div class="text-side">
+                    <h2>01. Ядро</h2>
+                    <p>Распакуй скачанный архив.</p>
+                    <p>Перенеси все файлы напрямую в папку <code>migi/csgo</code>. Структура файлов должна быть как на правом скриншоте. Если Windows спросит про замену — смело жми «Да». Мы здесь, чтобы ломать новое и строить старое.</p>
+                </div>
+                <div class="image-side">
+                    <img src="assets/lookToCSGO.png" alt="Файлы мода">
+                    <img src="assets/CoreCSGO.png" alt="Куда кидать">
+                    <img src="assets/Replace.png" alt="Замена файлов">
+                </div>
             </div>
-        </div>
+        </section>
+
+        <!-- Экран 3: MIGI -->
+        <section id="step2">
+            <div class="slide-content">
+                <div class="text-side">
+                    <h2>02. Сборка MIGI</h2>
+                    <p class="joke">Если запустишь без прав Администратора — магия не сработает.</p>
+                    <p>Открывай MIGI. Обязательно от имени Админа. Жми жирную кнопку <strong>Build MIGI</strong> и жди, пока программа переварит патчи интерфейса.</p>
+                </div>
+                <div class="image-side">
+                    <img src="assets/runMigiAsAdmin.png" alt="Права админа">
+                    <img src="assets/BuildMIGI.png" alt="Сборка">
+                </div>
+            </div>
+        </section>
+
+        <!-- Экран 4: Запуск -->
+        <section id="step3">
+            <div class="slide-content">
+                <div class="text-side">
+                    <h2>03. Параметры</h2>
+                    <p>Чтобы игра забыла про современный UI, нужно дать ей правильную команду.</p>
+                    <p>Открой свойства CS:GO в Steam и пропиши эти параметры запуска:</p>
+                    <div class="code-box">-game migi/csgo -language english</div>
+                </div>
+                <div class="image-side">
+                    <img src="assets/commadLine.png" alt="Строка запуска">
+                    <img src="assets/carefulBro.png" alt="Внимание">
+                </div>
+            </div>
+        </section>
+
+        <!-- Экран 5: Галерея (с горизонтальным скроллом) -->
+        <section id="gallery">
+            <div class="gallery-wrapper">
+                <h2 style="text-align: center; width: 100%;">Результат (Скролль вправо →)</h2>
+                <div class="gallery-container">
+                    <div class="gallery-item"><img src="assets/HeadUpDisplay_demo.JPG" alt="HUD"></div>
+                    <div class="gallery-item"><img src="assets/WinPanel.JPG" alt="Win Panel"></div>
+                    <div class="gallery-item"><img src="assets/KillFeed.JPG" alt="Killfeed"></div>
+                    <div class="gallery-item"><img src="assets/weaponInspect.JPG" alt="Weapon Inspect"></div>
+                    <div class="gallery-item"><img src="assets/knifeinspect.JPG" alt="Knife Inspect"></div>
+                    <div class="gallery-item"><img src="assets/defuse.JPG" alt="Defuse"></div>
+                    <div class="gallery-item"><img src="assets/alerts.JPG" alt="Alerts"></div>
+                    <div class="gallery-item"><img src="assets/MusicKitInspect.JPG" alt="Music Kit"></div>
+                </div>
+            </div>
+        </section>
 
     </div>
-
-    <footer>
-        <p>ClassicGO Project &copy; 2026. Сделано с ненавистью к новому UI.</p>
-    </footer>
 
 </body>
 </html>
