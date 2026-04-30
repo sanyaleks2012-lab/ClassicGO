@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ClassicGO — TokyoNight Docs</title>
+    <!-- Скрипт авто-перевода -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'ru',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: true
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    
     <style>
         :root {
             --bg-main: #1a1b26;
@@ -19,6 +31,18 @@
             --sidebar-width: 280px;
         }
 
+        /* Скрытие элементов Google Translate для чистоты дизайна */
+        .goog-te-banner-frame.skiptranslate, .goog-te-gadget-icon { display: none !important; }
+        body { top: 0px !important; }
+        .goog-te-gadget-simple {
+            background-color: var(--bg-sidebar) !important;
+            border: 1px solid var(--border) !important;
+            padding: 5px !important;
+            border-radius: 4px !important;
+            font-family: 'Inter', sans-serif !important;
+        }
+        .goog-te-menu-value span { color: var(--text-main) !important; }
+
         * { box-sizing: border-box; transition: all 0.2s ease-in-out; }
 
         body {
@@ -30,7 +54,6 @@
             line-height: 1.6;
         }
 
-        /* Sidebar */
         .sidebar {
             width: var(--sidebar-width);
             background: var(--bg-sidebar);
@@ -42,107 +65,32 @@
             z-index: 100;
         }
 
-        .sidebar-header {
-            padding: 50px 20px 30px;
-            text-align: center;
-        }
+        .sidebar-header { padding: 50px 20px 30px; text-align: center; }
+        .logo { max-width: 120px; margin-bottom: 20px; filter: drop-shadow(0 0 8px var(--accent-magenta)); }
+        .sidebar-header h1 { color: var(--accent-magenta); font-size: 1rem; margin: 0; letter-spacing: 3px; text-transform: uppercase; font-weight: 900; }
 
-        .logo {
-            max-width: 120px;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 8px var(--accent-magenta));
-        }
+        .nav-menu { list-style: none; padding: 20px 0; margin: 0; flex-grow: 1; }
+        .nav-item a { display: block; padding: 14px 30px; color: var(--text-main); text-decoration: none; font-size: 0.85rem; border-left: 3px solid transparent; }
+        .nav-item a:hover { background: rgba(187, 154, 247, 0.05); color: var(--accent-cyan); border-left: 3px solid var(--accent-cyan); }
 
-        .sidebar-header h1 {
-            color: var(--accent-magenta);
-            font-size: 1rem;
-            margin: 0;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            font-weight: 900;
-        }
+        .translate-container { padding: 20px; border-top: 1px solid var(--border); }
 
-        .nav-menu { list-style: none; padding: 20px 0; margin: 0; }
-        .nav-item a {
-            display: block;
-            padding: 14px 30px;
-            color: var(--text-main);
-            text-decoration: none;
-            font-size: 0.85rem;
-            border-left: 3px solid transparent;
-        }
-        .nav-item a:hover {
-            background: rgba(187, 154, 247, 0.05);
-            color: var(--accent-cyan);
-            border-left: 3px solid var(--accent-cyan);
-        }
-
-        /* Main Content */
-        .main-content {
-            margin-left: var(--sidebar-width);
-            padding: 60px;
-            width: 100%;
-            max-width: 1200px;
-        }
-
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 40px;
-            margin-bottom: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
+        .main-content { margin-left: var(--sidebar-width); padding: 60px; width: 100%; max-width: 1200px; }
+        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 40px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
 
         h2 { color: var(--accent-cyan); font-size: 1.6rem; margin-top: 0; display: flex; gap: 12px; }
         h2::before { content: '>'; color: var(--accent-green); font-family: monospace; }
 
-        .img-container {
-            background: #0f0f14;
-            padding: 10px;
-            border-radius: 12px;
-            margin: 25px 0;
-            border: 1px solid var(--border);
-        }
+        .img-container { background: #0f0f14; padding: 10px; border-radius: 12px; margin: 25px 0; border: 1px solid var(--border); }
         .img-container img { width: 100%; border-radius: 8px; display: block; }
 
-        .download-btn {
-            display: inline-block;
-            background: var(--accent-green);
-            color: var(--bg-main);
-            padding: 15px 30px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            margin: 20px 0;
-            text-transform: uppercase;
-        }
+        .download-btn { display: inline-block; background: var(--accent-green); color: var(--bg-main); padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: bold; margin: 20px 0; text-transform: uppercase; }
         .download-btn:hover { background: var(--accent-cyan); transform: scale(1.05); }
 
-        .code-box {
-            background: #16161e;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 4px solid var(--accent-pink);
-            color: var(--accent-pink);
-            font-family: 'JetBrains Mono', monospace;
-            margin: 15px 0;
-        }
+        .code-box { background: #16161e; padding: 20px; border-radius: 10px; border-left: 4px solid var(--accent-pink); color: var(--accent-pink); font-family: 'JetBrains Mono', monospace; margin: 15px 0; }
 
-        /* Memes section */
-        .meme-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
-        }
-        .meme-card {
-            background: rgba(0,0,0,0.3);
-            border-radius: 12px;
-            padding: 20px;
-            border: 1px solid var(--accent-magenta);
-            text-align: center;
-        }
+        .meme-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 20px; }
+        .meme-card { background: rgba(0,0,0,0.3); border-radius: 12px; padding: 20px; border: 1px solid var(--accent-magenta); text-align: center; }
         .meme-card p { font-size: 0.9rem; color: var(--text-bright); margin-top: 15px; }
 
         footer { text-align: center; padding: 40px; color: #414868; font-family: monospace; font-size: 0.8rem; }
@@ -161,6 +109,10 @@
             <li class="nav-item"><a href="#memes">Локальные мемы</a></li>
             <li class="nav-item"><a href="#visuals">Скриншоты</a></li>
         </ul>
+        <!-- Контейнер для виджета перевода -->
+        <div class="translate-container">
+            <div id="google_translate_element"></div>
+        </div>
     </nav>
 
     <main class="main-content">
@@ -177,7 +129,7 @@
         <section id="install" class="card">
             <h2>Directory Setup</h2>
             <p>Расположение файлов для корректной работы в Legacy-версии:</p>
-            <div class="code-box">.../csgo legacy</div>
+            <div class="code-box">.../csgo legacy/migi/csgo</div>
             <div class="img-container"><img src="assets/lookToCSGO.png"></div>
             <div class="img-container"><img src="assets/CoreCSGO.png"></div>
             <p>Обязательно подтвердите замену файлов при переносе:</p>
@@ -188,7 +140,7 @@
             <h2>Community Content</h2>
             <div class="meme-grid">
                 <div class="meme-card">
-                    <img src="assets/subtick.png" width="100%" alt="Subtick">
+                    <img src="assets/meme2.png" width="100%" alt="Subtick">
                     <p>Когда сабтик наконец-то зарегал твое попадание из 2024-го года</p>
                 </div>
                 <div class="meme-card">
