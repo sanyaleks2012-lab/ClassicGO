@@ -1,253 +1,242 @@
 <!DOCTYPE html>
-<html lang="ru" class="js">
+<html lang="ru">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - ClassicGO</title>
-
+    <title>ClassicGO — Scaleform Restoration</title>
     <style>
-        /* Цвета из схемы colors.json[cite: 3] */
+        /* Цвета из предоставленной палитры[cite: 3] */
         :root {
-            --text-color: white;
-            --text-header: #c4b550;
-            --text-select: #96892d;
-            --text-placeholder: #a0aa95;
-            --border-lite: #889180;
-            --border-dark: #282e22;
-            --bg-lite: #4c5844;
             --bg-dark: #3e4637;
-            --focus-lite: #f3de54;
-            --focus-dark: #857713;
+            --bg-lite: #4c5844;
+            --text-header: #c4b550;
+            --text-main: #ffffff;
+            --text-dim: #a0aa95;
+            --accent: #f3de54;
+            --border-dim: #282e22;
+            --border-bright: #889180;
         }
 
         body {
             margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            /* Полностью зеленый фон вместо изображения[cite: 3] */
-            background-color: var(--bg-lite) !important;
-            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-lite);
+            color: var(--text-main);
             display: flex;
+            line-height: 1.6;
         }
 
-        /* Боковая панель в стиле оригинала[cite: 2] */
-        nav.wy-nav-side {
-            width: 300px;
+        /* Улучшенная боковая панель[cite: 2] */
+        .sidebar {
+            width: 280px;
+            background: var(--bg-dark);
             height: 100vh;
-            background: var(--bg-dark) !important;
-            border-right: 2px solid var(--border-dark);
             position: fixed;
-            overflow-y: auto;
+            border-right: 1px solid var(--border-dim);
+            box-shadow: 4px 0 10px rgba(0,0,0,0.3);
+            z-index: 10;
         }
 
-        .wy-side-nav-search {
-            padding: 20px;
-            background: var(--bg-lite);
-            border-bottom: 2px solid var(--border-dark);
+        .sidebar-header {
+            padding: 30px 20px;
             text-align: center;
+            background: rgba(0,0,0,0.2);
         }
 
-        .wy-side-nav-search h1 {
+        .sidebar-header h1 {
             color: var(--text-header);
+            font-size: 1.8rem;
             margin: 0;
-            font-size: 1.5em;
-            text-shadow: 1px 1px #000;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
-        .wy-menu-vertical ul { list-style: none; padding: 0; margin: 0; }
-        .wy-menu-vertical li { border-bottom: 1px solid var(--border-dark); }
-        
-        .wy-menu-vertical a {
+        .nav-menu {
+            list-style: none;
+            padding: 20px 0;
+            margin: 0;
+        }
+
+        .nav-item a {
             display: block;
-            padding: 12px 20px;
-            color: var(--text-placeholder);
+            padding: 15px 25px;
+            color: var(--text-dim);
             text-decoration: none;
-            font-size: 14px;
-            font-weight: bold;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border-left: 4px solid transparent;
         }
 
-        .wy-menu-vertical a:hover {
+        .nav-item a:hover {
+            background: rgba(255,255,255,0.05);
+            color: var(--accent);
+            border-left: 4px solid var(--accent);
+        }
+
+        .nav-item.active a {
             background: var(--bg-lite);
             color: var(--text-header);
+            border-left: 4px solid var(--text-header);
         }
 
-        .wy-menu-vertical li.current a {
-            background: var(--bg-lite);
-            color: var(--text-header);
-            border-left: 4px solid var(--focus-lite);
-        }
-
-        /* Основной контентный блок[cite: 2] */
-        section.wy-nav-content-wrap {
-            margin-left: 300px;
-            width: calc(100% - 300px);
-            min-height: 100vh;
-            /* Убрано затемнение для чистого зеленого фона[cite: 3] */
-            background: transparent;
-        }
-
-        .wy-nav-content {
-            max-width: 1000px;
-            margin: 40px auto;
-            background: var(--bg-lite);
+        /* Основной контент[cite: 2] */
+        .main-content {
+            margin-left: 280px;
             padding: 40px;
-            border: 2px solid var(--border-lite);
-            box-shadow: inset 2px 2px 0 var(--border-dark), 5px 5px 15px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .content-card {
+            background: rgba(62, 70, 55, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-bright);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
         }
 
         h1, h2 {
             color: var(--text-header);
-            border-bottom: 1px solid var(--border-lite);
+            margin-top: 0;
+        }
+
+        h2 {
+            border-bottom: 2px solid var(--border-dim);
             padding-bottom: 10px;
+            margin-bottom: 20px;
         }
 
-        code {
+        /* Кнопки в стиле UI игры */
+        .btn-download {
             display: inline-block;
-            background: var(--bg-dark);
-            color: var(--focus-lite);
-            padding: 5px 10px;
-            border: 1px solid var(--border-dark);
-            border-right-color: var(--border-lite);
-            border-bottom-color: var(--border-lite);
-            font-family: monospace;
-            margin: 10px 0;
-        }
-
-        .btn-migi {
-            display: inline-block;
-            background: var(--bg-lite);
-            color: var(--text-color);
-            padding: 10px 20px;
+            background: var(--text-header);
+            color: var(--bg-dark);
+            padding: 15px 35px;
             text-decoration: none;
-            border: 2px solid;
-            border-color: var(--border-lite) var(--border-dark) var(--border-dark) var(--border-lite);
             font-weight: bold;
+            border-radius: 4px;
+            text-transform: uppercase;
+            transition: transform 0.2s, background 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
-        img {
-            max-width: 100%;
-            border: 2px solid var(--border-dark);
+        .btn-download:hover {
+            transform: translateY(-2px);
+            background: var(--accent);
+        }
+
+        /* Стили для кода и инструкций */
+        .code-box {
+            background: #1a1d17;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent);
+            font-family: 'Consolas', monospace;
+            color: var(--accent);
             margin: 20px 0;
         }
 
-        /* Галерея-слайдер */
-        .slider-valve {
-            position: relative;
-            overflow: hidden;
-            border: 2px solid var(--border-dark);
-            background: #000;
-        }
-        .slides { display: flex; transition: 0.4s; }
-        .slide { min-width: 100%; }
-        .slide img { margin: 0; border: none; }
-
-        .slider-nav {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            display: flex;
-            gap: 5px;
+        .img-container img {
+            max-width: 100%;
+            border-radius: 8px;
+            border: 1px solid var(--border-bright);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            margin: 20px 0;
         }
 
-        .nav-btn {
-            background: var(--bg-dark);
-            color: var(--text-color);
-            border: 1px solid var(--border-lite);
+        /* Галерея */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 6px;
             cursor: pointer;
-            padding: 5px 10px;
+            transition: opacity 0.3s;
         }
 
-        hr { border: 0; border-top: 1px solid var(--border-dark); border-bottom: 1px solid var(--border-lite); margin: 30px 0; }
+        .gallery-item img:hover { opacity: 0.8; }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
     </style>
 </head>
+<body>
 
-<body class="wy-body-for-nav">
-
-  <div class="wy-grid-for-nav">
-    
-    <nav class="wy-nav-side">
-      <div class="wy-side-nav-search">
-        <a href="#" style="text-decoration: none;"><h1>ClassicGO</h1></a>
-      </div>
-
-      <div class="wy-menu wy-menu-vertical">
-        <ul>
-          <li class="toctree-l1 current"><a href="#home">Главная</a></li>
-          <li class="toctree-l1"><a href="#install">Установка</a></li>
-          <li class="toctree-l1"><a href="#build">Сборка MIGI</a></li>
-          <li class="toctree-l1"><a href="#launch">Запуск</a></li>
-          <li class="toctree-l1"><a href="#gallery">Галерея</a></li>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h1>ClassicGO</h1>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item active"><a href="#home">Главная</a></li>
+            <li class="nav-item"><a href="#install">Установка</a></li>
+            <li class="nav-item"><a href="#build">Сборка MIGI</a></li>
+            <li class="nav-item"><a href="#gallery">Галерея</a></li>
         </ul>
-      </div>
     </nav>
 
-    <section class="wy-nav-content-wrap">
-      <div class="wy-nav-content">
-        
-        <div id="home">
-          <h1>ClassicGO Restoration</h1>
-          <h2>Введение</h2>
-          <p>ClassicGO — проект по возвращению <b>Scaleform HUD</b> в CS:GO с помощью инструментов MIGI[cite: 2].</p>
-          <img src="assets/HeadUpDisplay_demo.JPG" alt="preview">
-          <br>
-          <a href="https://github.com/sanyaleks2012-lab/ClassicGO/raw/refs/heads/main/oldhud.7z" class="btn-migi">СКАЧАТЬ OldHUD.7z</a>
-        </div>
-
-        <hr>
-
-        <div id="install">
-          <h2>Установка</h2>
-          <p>Распакуйте архив в <code>migi/csgo</code> и замените файлы.</p>
-          <img src="assets/CoreCSGO.png" alt="install">
-        </div>
-
-        <div id="build">
-          <h2>Сборка MIGI</h2>
-          <p>Используйте <b>Build MIGI</b> в лаунчере для применения изменений.</p>
-          <img src="assets/BuildMIGI.png" alt="build">
-        </div>
-
-        <div id="launch">
-          <h2>Параметры запуска</h2>
-          <code>-game migi/csgo -language english</code>
-        </div>
-
-        <hr>
-
-        <div id="gallery">
-          <h2>Галерея</h2>
-          <div class="slider-valve">
-            <div class="slides" id="slider-track">
-              <div class="slide"><img src="assets/WinPanel.JPG"></div>
-              <div class="slide"><img src="assets/KillFeed.JPG"></div>
-              <div class="slide"><img src="assets/weaponInspect.JPG"></div>
+    <main class="main-content">
+        <section id="home" class="content-card">
+            <h1>Scaleform HUD Restoration</h1>
+            <p>Добро пожаловать в проект ClassicGO. Мы используем возможности <strong>MIGI</strong> для полной замены интерфейса Panorama на классический Scaleform из ранних версий CS:GO[cite: 2].</p>
+            
+            <div class="img-container">
+                <img src="assets/HeadUpDisplay_demo.JPG" alt="HUD Demo">
             </div>
-            <div class="slider-nav">
-              <button class="nav-btn" onclick="moveSlide(-1)">❮</button>
-              <button class="nav-btn" onclick="moveSlide(1)">❯</button>
-            </div>
-          </div>
-        </div>
 
-        <footer style="margin-top: 50px; font-size: 11px; color: var(--text-placeholder);">
-          <p>ClassicGO Project © 2026. Based on MIGI Style[cite: 2, 3].</p>
+            <a href="https://github.com/sanyaleks2012-lab/ClassicGO/raw/refs/heads/main/oldhud.7z" class="btn-download">
+                Скачать патч (OldHUD.7z)
+            </a>
+        </section>
+
+        <section id="install" class="content-card">
+            <h2>Простая установка</h2>
+            <p>1. Скачайте архив и перейдите в корневую папку игры.<br>
+               2. Распакуйте содержимое в <code>migi/csgo</code>.<br>
+               3. Согласитесь на замену файлов, если потребуется.</p>
+            <div class="img-container">
+                <img src="assets/CoreCSGO.png" alt="Path">
+            </div>
+        </section>
+
+        <section id="build" class="content-card">
+            <h2>Сборка и Запуск</h2>
+            <p>Откройте лаунчер MIGI и нажмите кнопку ниже, чтобы применить изменения[cite: 2]:</p>
+            <div class="img-container">
+                <img src="assets/BuildMIGI.png" alt="Build">
+            </div>
+            
+            <p>Параметры запуска Steam:</p>
+            <div class="code-box">
+                -game migi/csgo -language english
+            </div>
+        </section>
+
+        <section id="gallery" class="content-card">
+            <h2>Галерея интерфейса</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="assets/WinPanel.JPG"></div>
+                <div class="gallery-item"><img src="assets/KillFeed.JPG"></div>
+                <div class="gallery-item"><img src="assets/weaponInspect.JPG"></div>
+            </div>
+        </section>
+
+        <footer>
+            ClassicGO Project © 2026 | Техническая поддержка в Discord ZooL Smith[cite: 2]
         </footer>
-
-      </div>
-    </section>
-
-  </div>
-
-  <script>
-    let currentSlide = 0;
-    function moveSlide(direction) {
-        const track = document.getElementById('slider-track');
-        const total = track.children.length;
-        currentSlide = (currentSlide + direction + total) % total;
-        track.style.transform = `translateX(-${currentSlide * 100}%)`;
-    }
-  </script>
+    </main>
 
 </body>
 </html>
