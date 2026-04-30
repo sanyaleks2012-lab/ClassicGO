@@ -6,178 +6,259 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - ClassicGO</title>
 
-    <!-- Оригинальные стили из файла Home - MIGI.html -->
-    <link rel="stylesheet" href="./Home - MIGI_files/theme.css" type="text/css">
-    <link rel="stylesheet" href="./Home - MIGI_files/theme_extra.css" type="text/css">
-    <link rel="stylesheet" href="./Home - MIGI_files/valve.css" type="text/css">
-    <link rel="stylesheet" href="./Home - MIGI_files/code.css">
-
     <style>
-        /* Принудительная черная тема и фон из assets */
+        /* Цвета из предоставленной схемы */
         :root {
-            --sidebar-bg: #111;
-            --content-bg: #000;
-            --accent: #F5FFC0;
+            --text-color: white;
+            --text-header: #c4b550;
+            --text-select: #96892d;
+            --text-placeholder: #a0aa95;
+            --border-lite: #889180;
+            --border-dark: #282e22;
+            --bg-lite: #4c5844;
+            --bg-dark: #3e4637;
+            --focus-lite: #f3de54;
+            --focus-dark: #857713;
         }
 
         body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
             background: url('assets/backgrounds.webp') no-repeat center center fixed !important;
             background-size: cover !important;
-            background-color: #000 !important;
+            color: var(--text-color);
+            display: flex;
         }
 
-        .wy-nav-side {
-            background: var(--sidebar-bg) !important;
+        /* Боковая панель в стиле оригинала[cite: 2] */
+        nav.wy-nav-side {
+            width: 300px;
+            height: 100vh;
+            background: var(--bg-dark);
+            border-right: 2px solid var(--border-dark);
+            position: fixed;
+            overflow-y: auto;
         }
 
-        .wy-nav-content-wrap {
-            background: rgba(0, 0, 0, 0.7) !important;
+        .wy-side-nav-search {
+            padding: 20px;
+            background: var(--bg-lite);
+            border-bottom: 2px solid var(--border-dark);
+            text-align: center;
+        }
+
+        .wy-side-nav-search h1 {
+            color: var(--text-header);
+            margin: 0;
+            font-size: 1.5em;
+            text-shadow: 1px 1px #000;
+        }
+
+        .wy-menu-vertical ul { list-style: none; padding: 0; margin: 0; }
+        .wy-menu-vertical li { border-bottom: 1px solid var(--border-dark); }
+        
+        .wy-menu-vertical a {
+            display: block;
+            padding: 12px 20px;
+            color: var(--text-placeholder);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .wy-menu-vertical a:hover {
+            background: var(--bg-lite);
+            color: var(--text-header);
+        }
+
+        .wy-menu-vertical li.current a {
+            background: var(--bg-lite);
+            color: var(--text-header);
+            border-left: 4px solid var(--focus-lite);
+        }
+
+        /* Основной контент[cite: 2] */
+        section.wy-nav-content-wrap {
+            margin-left: 300px;
+            width: calc(100% - 300px);
+            min-height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
         }
 
         .wy-nav-content {
-            background: var(--content-bg) !important;
-            color: #eee !important;
+            max-width: 1000px;
+            margin: 40px auto;
+            background: var(--bg-lite);
+            padding: 40px;
+            border: 2px solid var(--border-lite);
+            box-shadow: inset 2px 2px 0 var(--border-dark), 5px 5px 15px rgba(0,0,0,0.5);
         }
 
-        h1, h2, h3, a {
-            color: var(--accent) !important;
+        h1, h2 {
+            color: var(--text-header);
+            text-transform: none;
+            border-bottom: 1px solid var(--border-lite);
+            padding-bottom: 10px;
         }
 
-        .rst-content code {
-            color: var(--accent) !important;
-            background: #222 !important;
+        /* Элементы интерфейса в стиле Valve */
+        code {
+            display: inline-block;
+            background: var(--bg-dark);
+            color: var(--focus-lite);
+            padding: 5px 10px;
+            border: 1px solid var(--border-dark);
+            border-right-color: var(--border-lite);
+            border-bottom-color: var(--border-lite);
+            font-family: monospace;
+            margin: 10px 0;
         }
 
-        /* Стиль слайдера */
-        .slider-box {
-            position: relative;
-            overflow: hidden;
-            border: 1px solid var(--accent);
-            border-radius: 8px;
+        .btn-migi {
+            display: inline-block;
+            background: var(--bg-lite);
+            color: var(--text-color);
+            padding: 10px 20px;
+            text-decoration: none;
+            border: 2px solid;
+            border-color: var(--border-lite) var(--border-dark) var(--border-dark) var(--border-lite);
+            font-weight: bold;
+            transition: 0.1s;
+        }
+
+        .btn-migi:active {
+            border-color: var(--border-dark) var(--border-lite) var(--border-lite) var(--border-dark);
+        }
+
+        img {
+            max-width: 100%;
+            border: 2px solid var(--border-dark);
             margin: 20px 0;
         }
-        .slides-container {
-            display: flex;
-            transition: 0.5s;
+
+        /* Галерея-слайдер */
+        .slider-valve {
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--border-dark);
+            background: #000;
         }
-        .slides-container img {
-            min-width: 100%;
-            display: block;
-        }
-        .slider-btn {
+        .slides { display: flex; transition: 0.4s; }
+        .slide { min-width: 100%; }
+        .slide img { margin: 0; border: none; }
+
+        .slider-nav {
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0,0,0,0.8);
-            color: #fff;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            z-index: 5;
+            bottom: 10px;
+            right: 10px;
+            display: flex;
+            gap: 5px;
         }
+
+        .nav-btn {
+            background: var(--bg-dark);
+            color: var(--text-color);
+            border: 1px solid var(--border-lite);
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
+        .nav-btn:hover { background: var(--focus-dark); color: var(--focus-lite); }
+
+        hr { border: 0; border-top: 1px solid var(--border-dark); border-bottom: 1px solid var(--border-lite); margin: 30px 0; }
     </style>
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
   <div class="wy-grid-for-nav">
-    <!-- Боковая панель из оригинала[cite: 2] -->
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    
+    <!-- Sidebar[cite: 2] -->
+    <nav class="wy-nav-side">
       <div class="wy-side-nav-search">
-        <a href="#" class="icon icon-home" style="font-size: 20px; font-weight: bold; color: var(--accent) !important; text-decoration: none;">
-            ClassicGO
-        </a>
+        <a href="#"><h1>ClassicGO</h1></a>
       </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
-        <ul class="current">
-          <li class="toctree-l1 current"><a class="current" href="#home">Главная</a></li>
+      <div class="wy-menu wy-menu-vertical">
+        <ul>
+          <li class="toctree-l1 current"><a href="#home">Главная</a></li>
           <li class="toctree-l1"><a href="#install">Установка</a></li>
-          <li><a href="#build">Сборка MIGI</a></li>
-          <li><a href="#launch">Параметры запуска</a></li>
-          <li><a href="#gallery">Галерея</a></li>
+          <li class="toctree-l1"><a href="#build">Сборка MIGI</a></li>
+          <li class="toctree-l1"><a href="#launch">Запуск</a></li>
+          <li class="toctree-l1"><a href="#gallery">Галерея</a></li>
         </ul>
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-      <nav class="wy-nav-top" role="navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="#">ClassicGO</a>
-      </nav>
-
+    <!-- Main Content[cite: 2] -->
+    <section class="wy-nav-content-wrap">
       <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
-            <ul class="wy-breadcrumbs">
-              <li><a href="#">Manual</a> »</li>
-              <li>Home</li>
-            </ul>
-            <hr>
-          </div>
-
-          <div role="main">
-            <div class="section">
-              <h1 id="home">ClassicGO</h1>
-              <h2 id="introduction">Введение</h2>
-              <p>ClassicGO — это глобальная модификация, использующая инструмент MIGI[cite: 2] для восстановления легендарного <b>Scaleform HUD</b>. Мы возвращаем интерфейс из классической эпохи CS:GO, сохраняя все современные функции игры.</p>
-              
-              <p><img alt="preview" src="assets/HeadUpDisplay_demo.JPG"></p>
-
-              <h2 id="install">Установка</h2>
-              <p>Чтобы установить мод, перенесите файлы из архива в папку <code>migi/csgo</code>. При появлении окна подтверждения — выберите замену файлов.</p>
-              <p><img src="assets/CoreCSGO.png" alt="folder"></p>
-              <p><img src="assets/Replace.png" alt="replace"></p>
-
-              <h2 id="build">Сборка MIGI</h2>
-              <p>Запустите лаунчер MIGI и нажмите кнопку <strong>Build MIGI</strong>. Дождитесь окончания процесса, чтобы новые файлы HUD упаковались в игровые архивы.</p>
-              <p><img src="assets/BuildMIGI.png" alt="build"></p>
-
-              <h2 id="launch">Параметры запуска</h2>
-              <p>Для корректной работы укажите следующие параметры в Steam:</p>
-              <code>-game migi/csgo -language english</code>
-              <p><img src="assets/commadLine.png" alt="launch"></p>
-
-              <h2 id="gallery">Галерея</h2>
-              <div class="slider-box">
-                  <button class="slider-btn" style="left:0" onclick="moveSlide(-1)">❮</button>
-                  <button class="slider-btn" style="right:0" onclick="moveSlide(1)">❯</button>
-                  <div class="slides-container" id="slider">
-                      <img src="assets/WinPanel.JPG">
-                      <img src="assets/KillFeed.JPG">
-                      <img src="assets/weaponInspect.JPG">
-                      <img src="assets/knifeinspect.JPG">
-                  </div>
-              </div>
-
-              <h2 id="links">Ссылки</h2>
-              <ul>
-                <li><a href="https://github.com/sanyaleks2012-lab/ClassicGO/raw/refs/heads/main/oldhud.7z">Скачать OldHUD.7z</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <footer>
-            <div role="contentinfo">
-              <p>© 2026 ClassicGO Project. Адаптировано на основе стиля MIGI[cite: 2].</p>
-            </div>
-            <div style="opacity: 70%; font-size: 12px; text-align: center; margin-top: 20px;">
-              Built with <a href="http://www.mkdocs.org/">MkDocs</a> using a modified theme[cite: 2].
-            </div>
-          </footer>
+        
+        <div id="home">
+          <h1>ClassicGO Restoration</h1>
+          <h2>Introduction</h2>
+          <p>MIGI — это инструмент для объединения аддонов CS:GO[cite: 2]. Проект ClassicGO использует его для восстановления оригинального <b>Scaleform HUD</b>, заменяя стандартную Panorama UI.</p>
+          <img src="assets/HeadUpDisplay_demo.JPG" alt="preview">
+          <br>
+          <a href="https://github.com/sanyaleks2012-lab/ClassicGO/raw/refs/heads/main/oldhud.7z" class="btn-migi">СКАЧАТЬ ПАТЧ (OldHUD.7z)</a>
         </div>
+
+        <hr>
+
+        <div id="install">
+          <h2>Installation</h2>
+          <p>Скопируйте содержимое архива в <code>migi/csgo</code> и подтвердите замену всех файлов.</p>
+          <img src="assets/CoreCSGO.png" alt="install">
+        </div>
+
+        <div id="build">
+          <h2>MIGI Build</h2>
+          <p>Запустите лаунчер и нажмите <b>Build MIGI</b> для упаковки файлов.</p>
+          <img src="assets/BuildMIGI.png" alt="build">
+        </div>
+
+        <div id="launch">
+          <h2>Launch options</h2>
+          <p>Добавьте это в параметры запуска Steam:</p>
+          <code>-game migi/csgo -language english</code>
+        </div>
+
+        <hr>
+
+        <div id="gallery">
+          <h2>Gallery</h2>
+          <div class="slider-valve">
+            <div class="slides" id="slider-track">
+              <div class="slide"><img src="assets/WinPanel.JPG"></div>
+              <div class="slide"><img src="assets/KillFeed.JPG"></div>
+              <div class="slide"><img src="assets/weaponInspect.JPG"></div>
+            </div>
+            <div class="slider-nav">
+              <button class="nav-btn" onclick="moveSlide(-1)">❮</button>
+              <button class="nav-btn" onclick="moveSlide(1)">❯</button>
+            </div>
+          </div>
+        </div>
+
+        <footer style="margin-top: 50px; font-size: 11px; color: var(--text-placeholder);">
+          <p>Built with technical accuracy. Based on MIGI Theme[cite: 2, 3].</p>
+        </footer>
+
       </div>
     </section>
+
   </div>
 
   <script>
-    let currentIdx = 0;
-    function moveSlide(step) {
-        const slider = document.getElementById('slider');
-        const total = slider.children.length;
-        currentIdx = (currentIdx + step + total) % total;
-        slider.style.transform = `translateX(-${currentIdx * 100}%)`;
+    let currentSlide = 0;
+    function moveSlide(direction) {
+        const track = document.getElementById('slider-track');
+        const total = track.children.length;
+        currentSlide = (currentSlide + direction + total) % total;
+        track.style.transform = `translateX(-${currentSlide * 100}%)`;
     }
   </script>
+
 </body>
 </html>
