@@ -3,173 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClassicGO — Scaleform Restoration</title>
+    <title>ClassicGO — TokyoNight Edition</title>
     <style>
+        /* Палитра TokyoNight */
         :root {
-            --bg-dark: #3e4637;
-            --bg-lite: #4c5844;
-            --text-header: #c4b550;
-            --text-main: #ffffff;
-            --text-dim: #a0aa95;
-            --accent: #f3de54;
-            --border-dim: #282e22;
-            --border-bright: #889180;
+            --bg-dark: #1a1b26;
+            --bg-sidebar: #16161e;
+            --bg-card: #24283b;
+            --text-main: #a9b1d6;
+            --text-bright: #c0caf5;
+            --accent-cyan: #7dcfff;
+            --accent-magenta: #bb9af7;
+            --accent-pink: #f7768e;
+            --accent-green: #9ece6a;
+            --border: #414868;
         }
 
         body {
             margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background-color: var(--bg-lite);
+            padding: 0;
+            font-family: 'JetBrains Mono', 'Segoe UI', monospace;
+            background-color: var(--bg-dark);
             color: var(--text-main);
             display: flex;
-            line-height: 1.6;
         }
 
+        /* Sidebar в стиле редактора кода */
         .sidebar {
             width: 280px;
-            background: var(--bg-dark);
             height: 100vh;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
             position: fixed;
-            border-right: 1px solid var(--border-dim);
-            box-shadow: 4px 0 10px rgba(0,0,0,0.3);
             overflow-y: auto;
         }
 
-        .sidebar-header { padding: 30px 20px; text-align: center; background: rgba(0,0,0,0.2); }
-        .sidebar-header h1 { color: var(--text-header); font-size: 1.6rem; margin: 0; text-transform: uppercase; }
+        .sidebar-header {
+            padding: 30px 20px;
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
 
-        .nav-menu { list-style: none; padding: 20px 0; margin: 0; }
-        .nav-item a {
+        .sidebar-header h1 {
+            color: var(--accent-magenta);
+            font-size: 1.2rem;
+            margin: 0;
+            letter-spacing: 1px;
+            text-transform: lowercase; /* В стиле конфигов */
+        }
+
+        .nav-menu { list-style: none; padding: 15px 0; margin: 0; }
+        .nav-link {
             display: block;
             padding: 12px 25px;
-            color: var(--text-dim);
+            color: var(--text-main);
             text-decoration: none;
-            transition: 0.3s;
             font-size: 14px;
+            transition: 0.2s;
         }
-        .nav-item a:hover { background: rgba(255,255,255,0.05); color: var(--accent); }
+        .nav-link:hover {
+            background: rgba(187, 154, 247, 0.1);
+            color: var(--accent-cyan);
+        }
+        .nav-link::before { content: "󰄾 "; color: var(--accent-magenta); }
 
-        .main-content { margin-left: 280px; padding: 40px; width: 100%; max-width: 1100px; }
-        .content-card {
-            background: rgba(62, 70, 55, 0.9);
-            border: 1px solid var(--border-bright);
+        /* Основной контент */
+        .main-content {
+            margin-left: 280px;
+            width: 100%;
+            padding: 40px;
+            max-width: 1000px;
+        }
+
+        .section-card {
+            background: var(--bg-card);
             border-radius: 8px;
-            padding: 35px;
+            padding: 30px;
             margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        h1, h2 { color: var(--text-header); margin-top: 0; border-bottom: 1px solid var(--border-dim); padding-bottom: 10px; }
-        
-        .instruction-step { margin-bottom: 40px; }
-        .instruction-step img { 
-            max-width: 100%; 
-            border: 1px solid var(--border-bright); 
-            border-radius: 4px; 
-            margin: 15px 0;
-            display: block;
+        h2 {
+            color: var(--accent-cyan);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+            font-size: 1.4rem;
         }
 
-        .code-box {
-            background: #1a1d17;
-            padding: 12px;
-            border-radius: 4px;
-            border-left: 4px solid var(--accent);
-            color: var(--accent);
-            font-family: monospace;
-            margin: 15px 0;
+        .img-container {
+            margin: 20px 0;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: #000;
         }
 
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 15px;
-        }
-        .gallery-item { text-align: center; font-size: 12px; color: var(--text-dim); margin-bottom: 20px; }
-        .gallery-item img { width: 100%; border-radius: 4px; border: 1px solid var(--border-dim); margin-bottom: 5px; }
+        .img-container img { width: 100%; display: block; opacity: 0.9; transition: 0.3s; }
+        .img-container img:hover { opacity: 1; }
 
-        .warning-box {
-            background: rgba(133, 119, 19, 0.2);
-            border: 1px solid var(--accent);
+        .terminal-box {
+            background: #16161e;
             padding: 15px;
             border-radius: 4px;
-            margin: 20px 0;
+            border-left: 3px solid var(--accent-pink);
+            font-family: 'Consolas', monospace;
+            color: var(--accent-green);
+            margin: 15px 0;
+        }
+
+        /* Галерея */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .gallery-item {
+            background: var(--bg-sidebar);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 10px;
+        }
+        .gallery-item p {
+            margin: 8px 0 0;
+            font-size: 12px;
+            color: var(--accent-magenta);
+            text-align: center;
+        }
+
+        .warning {
+            color: var(--accent-pink);
+            background: rgba(247, 118, 142, 0.1);
+            padding: 15px;
+            border: 1px solid var(--accent-pink);
+            border-radius: 4px;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
 
     <nav class="sidebar">
-        <div class="sidebar-header"><h1>ClassicGO</h1></div>
+        <div class="sidebar-header">
+            <h1>classic_go.lua</h1>
+        </div>
         <ul class="nav-menu">
-            <li class="nav-item"><a href="#intro">Обзор</a></li>
-            <li class="nav-item"><a href="#install">Установка</a></li>
-            <li class="nav-item"><a href="#migi">Настройка MIGI</a></li>
-            <li class="nav-item"><a href="#launch">Запуск</a></li>
-            <li class="nav-item"><a href="#gallery">Галерея интерфейса</a></li>
+            <li><a href="#intro" class="nav-link">overview</a></li>
+            <li><a href="#files" class="nav-link">installation</a></li>
+            <li><a href="#migi" class="nav-link">migi_setup</a></li>
+            <li><a href="#gallery" class="nav-link">screenshots</a></li>
         </ul>
     </nav>
 
     <main class="main-content">
         
-        <section id="intro" class="content-card">
-            <h1>Scaleform Restoration</h1>
-            <p>ClassicGO — это глобальный мод для CS:GO, который заменяет современную Panorama UI на классический интерфейс Scaleform.</p>
-            <img src="assets/HeadUpDisplay_demo.JPG" alt="HUD Demo">
-            <div class="warning-box">
-                <strong>Важное примечание:</strong>
-                <p>Будьте осторожны при установке сторонних патчей. Всегда проверяйте пути установки.</p>
-                <img src="assets/carefulBro.png" alt="Warning" style="width: 250px;">
+        <section id="intro" class="section-card">
+            <h2>-- Overview</h2>
+            <p>Проект ClassicGO воссоздает Scaleform HUD в CS:GO[cite: 2].</p>
+            <div class="img-container">
+                <img src="assets/HeadUpDisplay_demo.JPG" alt="Main View">
+            </div>
+            <div class="warning">
+                <strong>[IMPORTANT]:</strong> Будьте внимательны с путями установки.
+                <img src="assets/carefulBro.png" style="width: 100px; display: block; margin-top: 10px;">
             </div>
         </section>
 
-        <section id="install" class="content-card">
-            <h2>Шаг 1: Подготовка и файлы</h2>
-            <div class="instruction-step">
-                <p>Сначала убедитесь, что вы находитесь в правильной директории игры. Вам понадобится папка <code>migi/csgo</code>.</p>
-                <img src="assets/lookToCSGO.png" alt="CSGO Folder">
-                <img src="assets/CoreCSGO.png" alt="MIGI Path">
-                
-                <p>Распакуйте содержимое скачанного архива и подтвердите замену файлов.</p>
-                <img src="assets/Replace.png" alt="Replace Files">
+        <section id="files" class="section-card">
+            <h2>-- File Configuration</h2>
+            <p>Путь установки: <code>migi/csgo</code>[cite: 2].</p>
+            <div class="img-container"><img src="assets/lookToCSGO.png"></div>
+            <div class="img-container"><img src="assets/CoreCSGO.png"></div>
+            <p>Замените файлы при распаковке архива.</p>
+            <div class="img-container"><img src="assets/Replace.png"></div>
+        </section>
+
+        <section id="migi" class="section-card">
+            <h2>-- Build Instructions</h2>
+            <p>1. Run MIGI as Administrator[cite: 2].</p>
+            <div class="img-container"><img src="assets/runMigiAsAdmin.png"></div>
+            <p>2. Press <strong>Build MIGI</strong>[cite: 2].</p>
+            <div class="img-container"><img src="assets/BuildMIGI.png"></div>
+            <p>3. Steam Launch Options:</p>
+            <div class="terminal-box">> -game migi/csgo -language english</div>
+            <div class="img-container"><img src="assets/commadLine.png"></div>
+        </section>
+
+        <section id="gallery" class="section-card">
+            <h2>-- Screenshots</h2>
+            <div class="gallery">
+                <div class="gallery-item"><img src="assets/WinPanel.JPG" width="100%"><p>win_panel.jpg</p></div>
+                <div class="gallery-item"><img src="assets/KillFeed.JPG" width="100%"><p>kill_feed.jpg</p></div>
+                <div class="gallery-item"><img src="assets/alerts.JPG" width="100%"><p>alerts.jpg</p></div>
+                <div class="gallery-item"><img src="assets/defuse.JPG" width="100%"><p>defuse_ui.jpg</p></div>
+                <div class="gallery-item"><img src="assets/weaponInspect.JPG" width="100%"><p>weapon_inspect.jpg</p></div>
+                <div class="gallery-item"><img src="assets/knifeinspect.JPG" width="100%"><p>knife_inspect.jpg</p></div>
+                <div class="gallery-item"><img src="assets/MusicKitInspect.JPG" width="100%"><p>music_kit.jpg</p></div>
             </div>
         </section>
 
-        <section id="migi" class="content-card">
-            <h2>Шаг 2: Работа с лаунчером</h2>
-            <div class="instruction-step">
-                <p>Запустите лаунчер MIGI. Крайне рекомендуется запускать его от имени администратора для корректной работы с файлами.</p>
-                <img src="assets/runMigiAsAdmin.png" alt="Admin Run">
-                
-                <p>В открывшемся окне нажмите кнопку <strong>Build MIGI</strong>. Это инициирует процесс сборки мода.</p>
-                <img src="assets/BuildMIGI.png" alt="Build">
-            </div>
-        </section>
-
-        <section id="launch" class="content-card">
-            <h2>Шаг 3: Настройка запуска</h2>
-            <p>Чтобы игра знала, что нужно запускать модифицированную версию, добавьте в параметры запуска Steam следующую строку:</p>
-            <div class="code-box">-game migi/csgo -language english</div>
-            <img src="assets/commadLine.png" alt="Command Line">
-        </section>
-
-        <section id="gallery" class="content-card">
-            <h2>Галерея всех элементов</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="assets/WinPanel.JPG"><p>Панель победы</p></div>
-                <div class="gallery-item"><img src="assets/KillFeed.JPG"><p>Лента убийств</p></div>
-                <div class="gallery-item"><img src="assets/alerts.JPG"><p>Уведомления системы</p></div>
-                <div class="gallery-item"><img src="assets/defuse.JPG"><p>Экран разминирования</p></div>
-                <div class="gallery-item"><img src="assets/weaponInspect.JPG"><p>Осмотр оружия</p></div>
-                <div class="gallery-item"><img src="assets/knifeinspect.JPG"><p>Осмотр холодного оружия</p></div>
-                <div class="gallery-item"><img src="assets/MusicKitInspect.JPG"><p>Музыкальные наборы</p></div>
-            </div>
-        </section>
-
-        <footer style="text-align: center; color: var(--text-dim); padding-bottom: 20px; font-size: 0.8rem;">
-            <p>ClassicGO Restoration Project © 2026. Разработано специально для любителей классического интерфейса.</p>
+        <footer style="text-align: center; padding: 20px; font-size: 10px; color: var(--border);">
+            ClassicGO | TokyoNight Theme | 2026
         </footer>
-
     </main>
 
 </body>
