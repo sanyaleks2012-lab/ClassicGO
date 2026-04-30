@@ -23,7 +23,7 @@
 
         body {
             margin: 0;
-            font-family: 'Inter', 'Segoe UI', sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg-main);
             color: var(--text-main);
             display: flex;
@@ -132,27 +132,20 @@
         /* Memes section */
         .meme-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
             margin-top: 20px;
         }
         .meme-card {
             background: rgba(0,0,0,0.3);
             border-radius: 12px;
-            padding: 15px;
+            padding: 20px;
             border: 1px solid var(--accent-magenta);
             text-align: center;
         }
-        .meme-card p { font-size: 0.9rem; color: var(--accent-magenta); margin-top: 10px; font-weight: bold; }
+        .meme-card p { font-size: 0.9rem; color: var(--text-bright); margin-top: 15px; }
 
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
-        .gallery-card { background: rgba(0,0,0,0.2); border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
-        .gallery-card img { width: 100%; height: 180px; object-fit: cover; }
-        .gallery-info { padding: 15px; text-align: center; font-size: 0.8rem; color: var(--accent-magenta); font-family: monospace; }
+        footer { text-align: center; padding: 40px; color: #414868; font-family: monospace; font-size: 0.8rem; }
     </style>
 </head>
 <body>
@@ -165,8 +158,8 @@
         <ul class="nav-menu">
             <li class="nav-item"><a href="#download">Загрузка</a></li>
             <li class="nav-item"><a href="#install">Установка</a></li>
-            <li class="nav-item"><a href="#memes">Мемы / CS2 vs CS:GO</a></li>
-            <li class="nav-item"><a href="#visuals">Ассеты</a></li>
+            <li class="nav-item"><a href="#memes">Локальные мемы</a></li>
+            <li class="nav-item"><a href="#visuals">Скриншоты</a></li>
         </ul>
     </nav>
 
@@ -174,20 +167,20 @@
         
         <section id="download" class="card">
             <h2>Source Retrieval</h2>
-            <p>Скачайте последнюю версию архива <b>oldhud.7z</b> для начала процесса восстановления[cite: 2].</p>
-            <a href="https://github.com/sanyaleks2012-lab/ClassicGO/raw/refs/heads/main/oldhud.7z" class="download-btn">Скачать OldHUD.7z</a>
+            <p>Прямая ссылка на архив проекта[cite: 2]:</p>
+            <a href="https://github.com/sanyaleks2012-lab/ClassicGO/raw/refs/heads/main/oldhud.7z" class="download-btn">Скачать oldhud.7z</a>
             <div class="img-container">
-                <img src="assets/HeadUpDisplay_demo.JPG" alt="HUD Demo">
+                <img src="assets/HeadUpDisplay_demo.JPG" alt="HUD">
             </div>
         </section>
 
         <section id="install" class="card">
             <h2>Directory Setup</h2>
-            <p>Убедитесь, что файлы расположены по корректному пути для Legacy-версии[cite: 2]:</p>
+            <p>Расположение файлов для корректной работы в Legacy-версии[cite: 2]:</p>
             <div class="code-box">.../csgo legacy/migi/csgo</div>
             <div class="img-container"><img src="assets/lookToCSGO.png"></div>
             <div class="img-container"><img src="assets/CoreCSGO.png"></div>
-            <p>При распаковке обязательно подтвердите перезапись[cite: 2].</p>
+            <p>Не забудьте про замену[cite: 2]:</p>
             <div class="img-container"><img src="assets/Replace.png"></div>
         </section>
 
@@ -195,32 +188,28 @@
             <h2>Community Content</h2>
             <div class="meme-grid">
                 <div class="meme-card">
-                    <img src="assets/meme1.png" width="100%" alt="CS2 vs CSGO">
-                    <p>Битва говна и жидкого золота (не моча)</p>
-                </div>
-                <div class="meme-card">
                     <img src="assets/meme2.png" width="100%" alt="Subtick">
-                    <p>Когда сабтик зарегал попадание в 2027-м</p>
+                    <p>Когда сабтик наконец-то зарегал твое попадание из 2024-го года</p>
                 </div>
                 <div class="meme-card">
-                    <img src="assets/carefulBro.png" width="100%" alt="Classic Warning">
-                    <p>Лицо чела, который зашел в CS2 после Scaleform</p>
+                    <img src="assets/cat.mdl.jpg" width="100%" alt="Friend's Project">
+                    <p>Твое лицо, когда скачал «кряк скита», а это ратка от твоего лучшего друга</p>
                 </div>
             </div>
         </section>
 
         <section id="visuals" class="card">
             <h2>Asset Showcase</h2>
-            <div class="gallery-grid">
-                <div class="gallery-card"><img src="assets/WinPanel.JPG"><div class="gallery-info">win_panel.ui</div></div>
-                <div class="gallery-card"><img src="assets/KillFeed.JPG"><div class="gallery-info">kill_feed.ui</div></div>
-                <div class="gallery-card"><img src="assets/alerts.JPG"><div class="gallery-info">alerts.ui</div></div>
-                <div class="gallery-card"><img src="assets/defuse.JPG"><div class="gallery-info">defuse_timer.ui</div></div>
+            <div class="meme-grid">
+                <div class="img-container" style="margin:0;"><img src="assets/WinPanel.JPG"></div>
+                <div class="img-container" style="margin:0;"><img src="assets/KillFeed.JPG"></div>
+                <div class="img-container" style="margin:0;"><img src="assets/defuse.JPG"></div>
+                <div class="img-container" style="margin:0;"><img src="assets/alerts.JPG"></div>
             </div>
         </section>
 
         <footer>
-            &copy; 2026 ClassicGO Restoration | TokyoNight.theme[cite: 3]
+            ClassicGO | TokyoNight Theme | 2026[cite: 3]
         </footer>
     </main>
 
