@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClassicGO — TokyoNight Edition</title>
+    <title>ClassicGO — TokyoNight Documentation</title>
     <style>
-        /* Палитра TokyoNight */
         :root {
-            --bg-dark: #1a1b26;
+            --bg-main: #1a1b26;
             --bg-sidebar: #16161e;
             --bg-card: #24283b;
             --text-main: #a9b1d6;
@@ -17,127 +16,175 @@
             --accent-pink: #f7768e;
             --accent-green: #9ece6a;
             --border: #414868;
+            --sidebar-width: 280px;
         }
+
+        * { box-sizing: border-box; }
 
         body {
             margin: 0;
-            padding: 0;
-            font-family: 'JetBrains Mono', 'Segoe UI', monospace;
-            background-color: var(--bg-dark);
+            font-family: 'Inter', 'JetBrains Mono', 'Segoe UI', sans-serif;
+            background-color: var(--bg-main);
             color: var(--text-main);
             display: flex;
+            line-height: 1.6;
         }
 
-        /* Sidebar в стиле редактора кода */
+        /* Sidebar */
         .sidebar {
-            width: 280px;
-            height: 100vh;
+            width: var(--sidebar-width);
             background: var(--bg-sidebar);
-            border-right: 1px solid var(--border);
+            height: 100vh;
             position: fixed;
-            overflow-y: auto;
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
         }
 
         .sidebar-header {
-            padding: 30px 20px;
-            border-bottom: 1px solid var(--border);
+            padding: 40px 20px;
             text-align: center;
+        }
+
+        .logo {
+            max-width: 150px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px var(--accent-magenta));
         }
 
         .sidebar-header h1 {
             color: var(--accent-magenta);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin: 0;
-            letter-spacing: 1px;
-            text-transform: lowercase; /* В стиле конфигов */
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 800;
         }
 
-        .nav-menu { list-style: none; padding: 15px 0; margin: 0; }
-        .nav-link {
+        .nav-menu {
+            list-style: none;
+            padding: 20px 0;
+            margin: 0;
+        }
+
+        .nav-item a {
             display: block;
-            padding: 12px 25px;
+            padding: 14px 30px;
             color: var(--text-main);
             text-decoration: none;
-            font-size: 14px;
-            transition: 0.2s;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border-left: 2px solid transparent;
         }
-        .nav-link:hover {
-            background: rgba(187, 154, 247, 0.1);
+
+        .nav-item a:hover {
+            background: rgba(125, 207, 255, 0.05);
             color: var(--accent-cyan);
+            border-left: 2px solid var(--accent-cyan);
         }
-        .nav-link::before { content: "󰄾 "; color: var(--accent-magenta); }
 
-        /* Основной контент */
+        /* Main Content */
         .main-content {
-            margin-left: 280px;
+            margin-left: var(--sidebar-width);
+            padding: 50px;
             width: 100%;
-            padding: 40px;
-            max-width: 1000px;
+            max-width: 1100px;
         }
 
-        .section-card {
+        .card {
             background: var(--bg-card);
-            border-radius: 8px;
-            padding: 30px;
-            margin-bottom: 30px;
             border: 1px solid var(--border);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 35px;
+            margin-bottom: 35px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         h2 {
             color: var(--accent-cyan);
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 10px;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .img-container {
-            margin: 20px 0;
-            border-radius: 6px;
-            overflow: hidden;
-            border: 1px solid var(--border);
+        h2::before {
+            content: '#';
+            color: var(--accent-magenta);
+            font-weight: 300;
+        }
+
+        p { color: var(--text-bright); font-size: 1.05rem; }
+
+        .img-wrap {
             background: #000;
+            padding: 8px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid var(--border);
         }
 
-        .img-container img { width: 100%; display: block; opacity: 0.9; transition: 0.3s; }
-        .img-container img:hover { opacity: 1; }
+        .img-wrap img {
+            width: 100%;
+            border-radius: 4px;
+            display: block;
+            transition: opacity 0.3s;
+        }
 
-        .terminal-box {
+        .img-wrap img:hover { opacity: 0.85; }
+
+        .code-block {
             background: #16161e;
             padding: 15px;
-            border-radius: 4px;
-            border-left: 3px solid var(--accent-pink);
-            font-family: 'Consolas', monospace;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-green);
             color: var(--accent-green);
+            font-family: 'JetBrains Mono', monospace;
             margin: 15px 0;
         }
 
-        /* Галерея */
+        /* Gallery */
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
         }
+
         .gallery-item {
-            background: var(--bg-sidebar);
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            overflow: hidden;
             border: 1px solid var(--border);
-            border-radius: 4px;
-            padding: 10px;
-        }
-        .gallery-item p {
-            margin: 8px 0 0;
-            font-size: 12px;
-            color: var(--accent-magenta);
-            text-align: center;
+            transition: transform 0.3s;
         }
 
-        .warning {
-            color: var(--accent-pink);
-            background: rgba(247, 118, 142, 0.1);
-            padding: 15px;
+        .gallery-item:hover { transform: translateY(-5px); }
+
+        .gallery-item img { width: 100%; height: 160px; object-fit: cover; }
+
+        .gallery-label {
+            padding: 10px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--accent-magenta);
+            text-transform: lowercase;
+        }
+
+        .alert {
             border: 1px solid var(--accent-pink);
-            border-radius: 4px;
-            margin-top: 10px;
+            background: rgba(247, 118, 142, 0.05);
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { width: 70px; }
+            .sidebar-header h1, .nav-item span { display: none; }
+            .main-content { margin-left: 70px; padding: 20px; }
         }
     </style>
 </head>
@@ -145,65 +192,65 @@
 
     <nav class="sidebar">
         <div class="sidebar-header">
-            <h1>classic_go.lua</h1>
+            <img src="logo.png" alt="ClassicGO Logo" class="logo">
+            <h1>ClassicGO</h1>
         </div>
         <ul class="nav-menu">
-            <li><a href="#intro" class="nav-link">overview</a></li>
-            <li><a href="#files" class="nav-link">installation</a></li>
-            <li><a href="#migi" class="nav-link">migi_setup</a></li>
-            <li><a href="#gallery" class="nav-link">screenshots</a></li>
+            <li class="nav-item"><a href="#intro"><span>Обзор</span></a></li>
+            <li class="nav-item"><a href="#files"><span>Установка</span></a></li>
+            <li class="nav-item"><a href="#build"><span>Сборка</span></a></li>
+            <li class="nav-item"><a href="#gallery"><span>Скриншоты</span></a></li>
         </ul>
     </nav>
 
     <main class="main-content">
         
-        <section id="intro" class="section-card">
-            <h2>-- Overview</h2>
-            <p>Проект ClassicGO воссоздает Scaleform HUD в CS:GO[cite: 2].</p>
-            <div class="img-container">
-                <img src="assets/HeadUpDisplay_demo.JPG" alt="Main View">
+        <section id="intro" class="card">
+            <h2>Проект ClassicGO</h2>
+            <p>Возвращение классического интерфейса Scaleform в CS:GO с использованием системы MIGI.</p>
+            <div class="img-wrap">
+                <img src="assets/HeadUpDisplay_demo.JPG" alt="HUD">
             </div>
-            <div class="warning">
-                <strong>[IMPORTANT]:</strong> Будьте внимательны с путями установки.
-                <img src="assets/carefulBro.png" style="width: 100px; display: block; margin-top: 10px;">
+            <div class="alert">
+                <img src="assets/carefulBro.png" style="width: 80px;" alt="Warning">
+                <p style="margin: 0; color: var(--accent-pink);">Соблюдайте точность при копировании файлов в директорию игры.</p>
             </div>
         </section>
 
-        <section id="files" class="section-card">
-            <h2>-- File Configuration</h2>
-            <p>Путь установки: <code>migi/csgo</code>[cite: 2].</p>
-            <div class="img-container"><img src="assets/lookToCSGO.png"></div>
-            <div class="img-container"><img src="assets/CoreCSGO.png"></div>
-            <p>Замените файлы при распаковке архива.</p>
-            <div class="img-container"><img src="assets/Replace.png"></div>
+        <section id="files" class="card">
+            <h2>Настройка файлов</h2>
+            <p>Перенесите ассеты мода в папку <code>migi/csgo</code> в корневой директории игры.</p>
+            <div class="img-wrap"><img src="assets/lookToCSGO.png"></div>
+            <div class="img-wrap"><img src="assets/CoreCSGO.png"></div>
+            <p>При появлении запроса подтвердите замену существующих элементов.</p>
+            <div class="img-wrap"><img src="assets/Replace.png"></div>
         </section>
 
-        <section id="migi" class="section-card">
-            <h2>-- Build Instructions</h2>
-            <p>1. Run MIGI as Administrator[cite: 2].</p>
-            <div class="img-container"><img src="assets/runMigiAsAdmin.png"></div>
-            <p>2. Press <strong>Build MIGI</strong>[cite: 2].</p>
-            <div class="img-container"><img src="assets/BuildMIGI.png"></div>
-            <p>3. Steam Launch Options:</p>
-            <div class="terminal-box">> -game migi/csgo -language english</div>
-            <div class="img-container"><img src="assets/commadLine.png"></div>
+        <section id="build" class="card">
+            <h2>Процесс сборки</h2>
+            <p>Запустите лаунчер MIGI с правами администратора и нажмите кнопку сборки.</p>
+            <div class="img-wrap"><img src="assets/runMigiAsAdmin.png"></div>
+            <div class="img-wrap"><img src="assets/BuildMIGI.png"></div>
+            <p>Параметры запуска Steam для активации:</p>
+            <div class="code-block">-game migi/csgo -language english</div>
+            <div class="img-wrap"><img src="assets/commadLine.png"></div>
         </section>
 
-        <section id="gallery" class="section-card">
-            <h2>-- Screenshots</h2>
+        <section id="gallery" class="card">
+            <h2>Галерея элементов</h2>
             <div class="gallery">
-                <div class="gallery-item"><img src="assets/WinPanel.JPG" width="100%"><p>win_panel.jpg</p></div>
-                <div class="gallery-item"><img src="assets/KillFeed.JPG" width="100%"><p>kill_feed.jpg</p></div>
-                <div class="gallery-item"><img src="assets/alerts.JPG" width="100%"><p>alerts.jpg</p></div>
-                <div class="gallery-item"><img src="assets/defuse.JPG" width="100%"><p>defuse_ui.jpg</p></div>
-                <div class="gallery-item"><img src="assets/weaponInspect.JPG" width="100%"><p>weapon_inspect.jpg</p></div>
-                <div class="gallery-item"><img src="assets/knifeinspect.JPG" width="100%"><p>knife_inspect.jpg</p></div>
-                <div class="gallery-item"><img src="assets/MusicKitInspect.JPG" width="100%"><p>music_kit.jpg</p></div>
+                <div class="gallery-item"><img src="assets/WinPanel.JPG"><div class="gallery-label">win_panel.jpg</div></div>
+                <div class="gallery-item"><img src="assets/KillFeed.JPG"><div class="gallery-label">kill_feed.jpg</div></div>
+                <div class="gallery-item"><img src="assets/alerts.JPG"><div class="gallery-label">alerts.jpg</div></div>
+                <div class="gallery-item"><img src="assets/defuse.JPG"><div class="gallery-label">defuse_ui.jpg</div></div>
+                <div class="gallery-item"><img src="assets/weaponInspect.JPG"><div class="gallery-label">weapon_inspect.jpg</div></div>
+                <div class="gallery-item"><img src="assets/knifeinspect.JPG"><div class="gallery-label">knife_inspect.jpg</div></div>
+                <div class="gallery-item"><img src="assets/MusicKitInspect.JPG"><div class="gallery-label">music_kit.jpg</div></div>
             </div>
         </section>
 
-        <footer style="text-align: center; padding: 20px; font-size: 10px; color: var(--border);">
-            ClassicGO | TokyoNight Theme | 2026
+        <footer style="text-align: center; color: var(--border); font-family: monospace; font-size: 0.8rem;">
+            system.exec("ClassicGO_TokyoNight_v1.0")
         </footer>
     </main>
 
