@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClassicGO — Полная инструкция</title>
+    <title>ClassicGO — Scaleform Restoration</title>
     <style>
         :root {
             --bg-dark: #3e4637;
@@ -85,8 +85,8 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 15px;
         }
-        .gallery-item { text-align: center; font-size: 12px; color: var(--text-dim); }
-        .gallery-item img { width: 100%; border-radius: 4px; border: 1px solid var(--border-dim); }
+        .gallery-item { text-align: center; font-size: 12px; color: var(--text-dim); margin-bottom: 20px; }
+        .gallery-item img { width: 100%; border-radius: 4px; border: 1px solid var(--border-dim); margin-bottom: 5px; }
 
         .warning-box {
             background: rgba(133, 119, 19, 0.2);
@@ -114,40 +114,41 @@
         
         <section id="intro" class="content-card">
             <h1>Scaleform Restoration</h1>
-            <p>ClassicGO возвращает аутентичный интерфейс в CS:GO, используя систему MIGI[cite: 2].</p>
+            <p>ClassicGO — это глобальный мод для CS:GO, который заменяет современную Panorama UI на классический интерфейс Scaleform.</p>
             <img src="assets/HeadUpDisplay_demo.JPG" alt="HUD Demo">
             <div class="warning-box">
-                <strong>Внимание:</strong> Используйте мод только на серверах с поддержкой MIGI.
-                <img src="assets/carefulBro.png" alt="Warning" style="width: 200px; margin-top: 10px;">
+                <strong>Важное примечание:</strong>
+                <p>Будьте осторожны при установке сторонних патчей. Всегда проверяйте пути установки.</p>
+                <img src="assets/carefulBro.png" alt="Warning" style="width: 250px;">
             </div>
         </section>
 
         <section id="install" class="content-card">
-            <h2>Шаг 1: Установка файлов</h2>
+            <h2>Шаг 1: Подготовка и файлы</h2>
             <div class="instruction-step">
-                <p>1. Перейдите в директорию игры и найдите папку <code>migi/csgo</code>[cite: 2].</p>
+                <p>Сначала убедитесь, что вы находитесь в правильной директории игры. Вам понадобится папка <code>migi/csgo</code>.</p>
                 <img src="assets/lookToCSGO.png" alt="CSGO Folder">
                 <img src="assets/CoreCSGO.png" alt="MIGI Path">
                 
-                <p>2. Распакуйте мод и подтвердите замену файлов в целевой папке[cite: 2].</p>
+                <p>Распакуйте содержимое скачанного архива и подтвердите замену файлов.</p>
                 <img src="assets/Replace.png" alt="Replace Files">
             </div>
         </section>
 
         <section id="migi" class="content-card">
-            <h2>Шаг 2: Сборка через MIGI</h2>
+            <h2>Шаг 2: Работа с лаунчером</h2>
             <div class="instruction-step">
-                <p>1. Запустите лаунчер MIGI от имени администратора[cite: 2].</p>
+                <p>Запустите лаунчер MIGI. Крайне рекомендуется запускать его от имени администратора для корректной работы с файлами.</p>
                 <img src="assets/runMigiAsAdmin.png" alt="Admin Run">
                 
-                <p>2. Нажмите <strong>Build MIGI</strong> для упаковки Scaleform HUD[cite: 2].</p>
+                <p>В открывшемся окне нажмите кнопку <strong>Build MIGI</strong>. Это инициирует процесс сборки мода.</p>
                 <img src="assets/BuildMIGI.png" alt="Build">
             </div>
         </section>
 
         <section id="launch" class="content-card">
-            <h2>Шаг 3: Параметры запуска</h2>
-            <p>Установите следующие параметры в Steam для активации мода[cite: 2]:</p>
+            <h2>Шаг 3: Настройка запуска</h2>
+            <p>Чтобы игра знала, что нужно запускать модифицированную версию, добавьте в параметры запуска Steam следующую строку:</p>
             <div class="code-box">-game migi/csgo -language english</div>
             <img src="assets/commadLine.png" alt="Command Line">
         </section>
@@ -157,16 +158,16 @@
             <div class="gallery-grid">
                 <div class="gallery-item"><img src="assets/WinPanel.JPG"><p>Панель победы</p></div>
                 <div class="gallery-item"><img src="assets/KillFeed.JPG"><p>Лента убийств</p></div>
-                <div class="gallery-item"><img src="assets/alerts.JPG"><p>Уведомления</p></div>
-                <div class="gallery-item"><img src="assets/defuse.JPG"><p>Процесс разминирования</p></div>
+                <div class="gallery-item"><img src="assets/alerts.JPG"><p>Уведомления системы</p></div>
+                <div class="gallery-item"><img src="assets/defuse.JPG"><p>Экран разминирования</p></div>
                 <div class="gallery-item"><img src="assets/weaponInspect.JPG"><p>Осмотр оружия</p></div>
-                <div class="gallery-item"><img src="assets/knifeinspect.JPG"><p>Осмотр ножа</p></div>
+                <div class="gallery-item"><img src="assets/knifeinspect.JPG"><p>Осмотр холодного оружия</p></div>
                 <div class="gallery-item"><img src="assets/MusicKitInspect.JPG"><p>Музыкальные наборы</p></div>
             </div>
         </section>
 
-        <footer style="text-align: center; color: var(--text-dim); padding-bottom: 20px;">
-            <p>Использованы все ассеты из директории ClassicGO/assets. Проект базируется на стиле MIGI[cite: 2, 3].</p>
+        <footer style="text-align: center; color: var(--text-dim); padding-bottom: 20px; font-size: 0.8rem;">
+            <p>ClassicGO Restoration Project © 2026. Разработано специально для любителей классического интерфейса.</p>
         </footer>
 
     </main>
