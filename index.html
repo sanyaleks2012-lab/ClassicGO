@@ -7,7 +7,7 @@
     <title>Home - ClassicGO</title>
 
     <style>
-        /* Цвета из предоставленной схемы */
+        /* Цвета из схемы colors.json[cite: 3] */
         :root {
             --text-color: white;
             --text-header: #c4b550;
@@ -25,8 +25,8 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background: url('assets/backgrounds.webp') no-repeat center center fixed !important;
-            background-size: cover !important;
+            /* Полностью зеленый фон вместо изображения[cite: 3] */
+            background-color: var(--bg-lite) !important;
             color: var(--text-color);
             display: flex;
         }
@@ -35,7 +35,7 @@
         nav.wy-nav-side {
             width: 300px;
             height: 100vh;
-            background: var(--bg-dark);
+            background: var(--bg-dark) !important;
             border-right: 2px solid var(--border-dark);
             position: fixed;
             overflow-y: auto;
@@ -78,12 +78,13 @@
             border-left: 4px solid var(--focus-lite);
         }
 
-        /* Основной контент[cite: 2] */
+        /* Основной контентный блок[cite: 2] */
         section.wy-nav-content-wrap {
             margin-left: 300px;
             width: calc(100% - 300px);
             min-height: 100vh;
-            background: rgba(0, 0, 0, 0.5);
+            /* Убрано затемнение для чистого зеленого фона[cite: 3] */
+            background: transparent;
         }
 
         .wy-nav-content {
@@ -92,17 +93,15 @@
             background: var(--bg-lite);
             padding: 40px;
             border: 2px solid var(--border-lite);
-            box-shadow: inset 2px 2px 0 var(--border-dark), 5px 5px 15px rgba(0,0,0,0.5);
+            box-shadow: inset 2px 2px 0 var(--border-dark), 5px 5px 15px rgba(0,0,0,0.3);
         }
 
         h1, h2 {
             color: var(--text-header);
-            text-transform: none;
             border-bottom: 1px solid var(--border-lite);
             padding-bottom: 10px;
         }
 
-        /* Элементы интерфейса в стиле Valve */
         code {
             display: inline-block;
             background: var(--bg-dark);
@@ -124,11 +123,6 @@
             border: 2px solid;
             border-color: var(--border-lite) var(--border-dark) var(--border-dark) var(--border-lite);
             font-weight: bold;
-            transition: 0.1s;
-        }
-
-        .btn-migi:active {
-            border-color: var(--border-dark) var(--border-lite) var(--border-lite) var(--border-dark);
         }
 
         img {
@@ -164,8 +158,6 @@
             padding: 5px 10px;
         }
 
-        .nav-btn:hover { background: var(--focus-dark); color: var(--focus-lite); }
-
         hr { border: 0; border-top: 1px solid var(--border-dark); border-bottom: 1px solid var(--border-lite); margin: 30px 0; }
     </style>
 </head>
@@ -174,10 +166,9 @@
 
   <div class="wy-grid-for-nav">
     
-    <!-- Sidebar[cite: 2] -->
     <nav class="wy-nav-side">
       <div class="wy-side-nav-search">
-        <a href="#"><h1>ClassicGO</h1></a>
+        <a href="#" style="text-decoration: none;"><h1>ClassicGO</h1></a>
       </div>
 
       <div class="wy-menu wy-menu-vertical">
@@ -191,43 +182,41 @@
       </div>
     </nav>
 
-    <!-- Main Content[cite: 2] -->
     <section class="wy-nav-content-wrap">
       <div class="wy-nav-content">
         
         <div id="home">
           <h1>ClassicGO Restoration</h1>
-          <h2>Introduction</h2>
-          <p>MIGI — это инструмент для объединения аддонов CS:GO[cite: 2]. Проект ClassicGO использует его для восстановления оригинального <b>Scaleform HUD</b>, заменяя стандартную Panorama UI.</p>
+          <h2>Введение</h2>
+          <p>ClassicGO — проект по возвращению <b>Scaleform HUD</b> в CS:GO с помощью инструментов MIGI[cite: 2].</p>
           <img src="assets/HeadUpDisplay_demo.JPG" alt="preview">
           <br>
-          <a href="https://github.com/sanyaleks2012-lab/ClassicGO/raw/refs/heads/main/oldhud.7z" class="btn-migi">СКАЧАТЬ ПАТЧ (OldHUD.7z)</a>
+          <a href="https://github.com/sanyaleks2012-lab/ClassicGO/raw/refs/heads/main/oldhud.7z" class="btn-migi">СКАЧАТЬ OldHUD.7z</a>
         </div>
 
         <hr>
 
         <div id="install">
-          <h2>Installation</h2>
-          <p>Скопируйте содержимое архива в <code>migi/csgo</code> и подтвердите замену всех файлов.</p>
+          <h2>Установка</h2>
+          <p>Распакуйте архив в <code>migi/csgo</code> и замените файлы.</p>
           <img src="assets/CoreCSGO.png" alt="install">
         </div>
 
         <div id="build">
-          <h2>MIGI Build</h2>
-          <p>Запустите лаунчер и нажмите <b>Build MIGI</b> для упаковки файлов.</p>
+          <h2>Сборка MIGI</h2>
+          <p>Используйте <b>Build MIGI</b> в лаунчере для применения изменений.</p>
           <img src="assets/BuildMIGI.png" alt="build">
         </div>
 
         <div id="launch">
-          <h2>Launch options</h2>
-          <p>Добавьте это в параметры запуска Steam:</p>
+          <h2>Параметры запуска</h2>
           <code>-game migi/csgo -language english</code>
         </div>
 
         <hr>
 
         <div id="gallery">
-          <h2>Gallery</h2>
+          <h2>Галерея</h2>
           <div class="slider-valve">
             <div class="slides" id="slider-track">
               <div class="slide"><img src="assets/WinPanel.JPG"></div>
@@ -242,7 +231,7 @@
         </div>
 
         <footer style="margin-top: 50px; font-size: 11px; color: var(--text-placeholder);">
-          <p>Built with technical accuracy. Based on MIGI Theme[cite: 2, 3].</p>
+          <p>ClassicGO Project © 2026. Based on MIGI Style[cite: 2, 3].</p>
         </footer>
 
       </div>
