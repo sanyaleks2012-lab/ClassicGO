@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClassicGO Installation Guide</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #e0e0e0; background: #121212; margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: auto; background: #1e1e1e; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        h1 { color: #4CAF50; border-bottom: 2px solid #333; padding-bottom: 10px; text-align: center; }
+        h2 { color: #2196F3; margin-top: 30px; border-left: 5px solid #2196F3; padding-left: 15px; }
+        p { margin: 10px 0; }
+        .step { background: #262626; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        code { background: #000; color: #ffca28; padding: 2px 6px; border-radius: 4px; font-family: 'Consolas', monospace; }
+        .command-box { background: #000; color: #00ff00; padding: 15px; border-radius: 5px; overflow-x: auto; border: 1px solid #333; }
+        img { max-width: 100%; height: auto; border-radius: 5px; margin: 15px 0; border: 1px solid #444; display: block; }
+        .warning { background: #4b2c20; border-left: 5px solid #ff5722; padding: 15px; border-radius: 5px; margin: 20px 0; }
+        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 20px; }
+        .gallery img { margin: 0; }
+        footer { text-align: center; margin-top: 40px; color: #666; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Установка ClassicGO (Old HUD)</h1>
+
+    <div class="step">
+        <h2>Шаг 1: Подготовка</h2>
+        <p>Скачайте архив <code>oldhud.7z</code> и распакуйте его содержимое. Убедитесь, что у вас установлен <strong>MIGI</strong> для работы с модами CS:GO.</p>
+        <img src="assets/lookToCSGO.png" alt="Look at CSGO Files">
+    </div>
+
+    <div class="step">
+        <h2>Шаг 2: Настройка Core</h2>
+        <p>Переместите файлы мода в папку <code>migi/csgo</code>. Проверьте правильность структуры папок, чтобы она соответствовала скриншоту ниже:</p>
+        <img src="assets/CoreCSGO.png" alt="Core CSGO Files">
+        <p>При появлении окна о замене файлов, подтвердите замену:</p>
+        <img src="assets/Replace.png" alt="Replace Files">
+    </div>
+
+    <div class="step">
+        <h2>Шаг 3: Запуск MIGI</h2>
+        <div class="warning">
+            <strong>Важно:</strong> Всегда запускайте MIGI от имени администратора для корректной работы патчей!
+        </div>
+        <img src="assets/runMigiAsAdmin.png" alt="Run as Admin">
+        <p>Нажмите кнопку <strong>Build MIGI</strong> и дождитесь завершения процесса:</p>
+        <img src="assets/BuildMIGI.png" alt="Build MIGI">
+    </div>
+
+    <div class="step">
+        <h2>Шаг 4: Параметры запуска</h2>
+        <p>Для корректной работы HUD и старого стиля интерфейса, обязательно добавьте следующие параметры запуска в Steam:</p>
+        <div class="command-box">
+            -game migi/csgo -language english
+        </div>
+        <img src="assets/commadLine.png" alt="Command Line Arguments">
+        <img src="assets/carefulBro.png" alt="Warning">
+    </div>
+
+    <div class="step">
+        <h2>Демонстрация мода</h2>
+        <p>Если всё сделано правильно, вы увидите классический интерфейс в игре:</p>
+        <img src="assets/HeadUpDisplay_demo.JPG" alt="HUD Demo">
+        
+        <div class="gallery">
+            <img src="assets/WinPanel.JPG" alt="Win Panel">
+            <img src="assets/KillFeed.JPG" alt="Kill Feed">
+            <img src="assets/weaponInspect.JPG" alt="Weapon Inspect">
+            <img src="assets/defuse.JPG" alt="Defuse">
+            <img src="assets/alerts.JPG" alt="Alerts">
+            <img src="assets/knifeinspect.JPG" alt="Knife Inspect">
+            <img src="assets/MusicKitInspect.JPG" alt="Music Kit">
+        </div>
+    </div>
+
+    <footer>
+        <p>ClassicGO Project &copy; 2026. Разработано для фанатов старого интерфейса.</p>
+    </footer>
+</div>
+
+</body>
+</html>
