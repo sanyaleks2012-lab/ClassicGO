@@ -1,0 +1,1 @@
+overviews folder has the old csgo map radars if u dont want them just delete/rename it

@@ -25,15 +25,8 @@
             --shadow-glow: 0 0 30px rgba(125, 207, 255, 0.15);
         }
 
-        * { 
-            box-sizing: border-box; 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        html { 
-            scroll-behavior: smooth; 
-            scroll-padding-top: 20px;
-        }
+        * { box-sizing: border-box; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        html { scroll-behavior: smooth; scroll-padding-top: 20px; }
 
         body {
             margin: 0;
@@ -49,15 +42,11 @@
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: 
                 radial-gradient(circle at 20% 50%, rgba(187, 154, 247, 0.03) 0%, transparent 50%),
                 radial-gradient(circle at 80% 80%, rgba(125, 207, 255, 0.03) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: -1;
+            pointer-events: none; z-index: -1;
         }
 
         .sidebar {
@@ -121,18 +110,11 @@
             color: var(--accent-cyan);
         }
 
-        .nav-menu { 
-            list-style: none; 
-            padding: 20px 15px; 
-            margin: 0; 
-        }
-        
+        .nav-menu { list-style: none; padding: 20px 15px; margin: 0; }
         .nav-item { margin-bottom: 5px; }
         
         .nav-item a {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            display: flex; align-items: center; gap: 12px;
             padding: 12px 18px;
             color: var(--text-main);
             text-decoration: none;
@@ -144,20 +126,13 @@
         }
         
         .nav-item a::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 0;
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 0;
             background: linear-gradient(90deg, rgba(125, 207, 255, 0.1) 0%, transparent 100%);
             transition: width 0.3s ease;
         }
-        
         .nav-item a:hover::before { width: 100%; }
         
-        .nav-item a:hover,
-        .nav-item a.active {
+        .nav-item a:hover, .nav-item a.active {
             background: rgba(187, 154, 247, 0.08);
             color: var(--accent-cyan);
             border-left-color: var(--accent-cyan);
@@ -165,15 +140,8 @@
         }
 
         .nav-item a.active::after {
-            content: '';
-            position: absolute;
-            right: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 8px;
-            height: 8px;
-            background: var(--accent-green);
-            border-radius: 50%;
+            content: ''; position: absolute; right: 18px; top: 50%; transform: translateY(-50%);
+            width: 8px; height: 8px; background: var(--accent-green); border-radius: 50%;
             box-shadow: 0 0 10px var(--accent-green);
         }
 
@@ -197,16 +165,10 @@
         }
         
         .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
             background: radial-gradient(circle, rgba(125, 207, 255, 0.03) 0%, transparent 70%);
             animation: pulse 4s ease-in-out infinite;
         }
-        
         @keyframes pulse {
             0%, 100% { transform: scale(1); opacity: 0.5; }
             50% { transform: scale(1.1); opacity: 0.8; }
@@ -214,26 +176,15 @@
         
         .hero h1 {
             color: var(--accent-cyan);
-            font-size: 2.8rem;
-            margin: 0 0 10px;
-            font-weight: 800;
+            font-size: 2.8rem; margin: 0 0 10px; font-weight: 800;
             text-shadow: 0 0 30px rgba(125, 207, 255, 0.4);
-            position: relative;
-            z-index: 1;
+            position: relative; z-index: 1;
             background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-magenta) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         }
-        
         .hero p {
-            color: var(--text-bright);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
-            opacity: 0.9;
-            position: relative;
-            z-index: 1;
+            color: var(--text-bright); font-size: 1.1rem; max-width: 600px; margin: 0 auto;
+            opacity: 0.9; position: relative; z-index: 1;
         }
 
         .card {
@@ -246,209 +197,110 @@
             position: relative;
             overflow: hidden;
         }
-        
         .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
             background: linear-gradient(90deg, var(--accent-cyan), var(--accent-magenta), var(--accent-green));
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            opacity: 0; transition: opacity 0.3s ease;
         }
-        
         .card:hover::before { opacity: 1; }
 
         h2 { 
-            color: var(--accent-cyan); 
-            font-size: 1.5rem; 
-            margin: 0 0 20px; 
-            display: flex; 
-            align-items: center; 
-            gap: 10px;
-            font-weight: 700;
+            color: var(--accent-cyan); font-size: 1.5rem; margin: 0 0 20px; 
+            display: flex; align-items: center; gap: 10px; font-weight: 700; 
         }
-        
         h2::before { 
-            content: ''; 
-            color: var(--accent-green); 
-            font-family: monospace; 
-            font-size: 1.2rem;
-            filter: drop-shadow(0 0 8px var(--accent-green));
+            content: '▹'; color: var(--accent-green); font-family: monospace; 
+            font-size: 1.2rem; filter: drop-shadow(0 0 8px var(--accent-green)); 
         }
 
         .img-container {
             background: linear-gradient(135deg, #0f0f14 0%, #1a1b26 100%);
-            padding: 10px;
-            border-radius: 16px;
-            margin: 20px 0;
-            border: 1px solid var(--border);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-            overflow: hidden;
-            position: relative;
+            padding: 10px; border-radius: 16px; margin: 20px 0; border: 1px solid var(--border);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3); overflow: hidden; position: relative;
         }
-        
         .img-container::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: linear-gradient(135deg, rgba(125, 207, 255, 0.05) 0%, transparent 100%);
             pointer-events: none;
         }
-        
         .img-container img { 
-            width: 100%; 
-            border-radius: 12px; 
-            display: block; 
-            max-height: 500px;
-            object-fit: contain;
-            transition: transform 0.3s ease;
+            width: 100%; border-radius: 12px; display: block; max-height: 500px;
+            object-fit: contain; transition: transform 0.3s ease;
         }
-        
         .img-container:hover img { transform: scale(1.02); }
 
         .download-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
+            display: inline-flex; align-items: center; gap: 10px;
             background: linear-gradient(135deg, var(--accent-green) 0%, #7aa2f7 100%);
-            color: var(--bg-main);
-            padding: 15px 30px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 700;
-            margin: 15px 0;
-            text-transform: uppercase;
-            font-size: 0.9rem;
+            color: var(--bg-main); padding: 15px 30px; border-radius: 12px;
+            text-decoration: none; font-weight: 700; margin: 15px 0;
+            text-transform: uppercase; font-size: 0.9rem;
             box-shadow: 0 4px 20px rgba(158, 206, 106, 0.4);
-            position: relative;
-            overflow: hidden;
-            letter-spacing: 0.5px;
+            position: relative; overflow: hidden; letter-spacing: 0.5px;
         }
-        
         .download-btn::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%; width: 100%; height: 100%;
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
             transition: left 0.5s ease;
         }
-        
         .download-btn:hover::before { left: 100%; }
-        
         .download-btn:hover { 
-            transform: translateY(-3px); 
-            box-shadow: 0 8px 30px rgba(125, 207, 255, 0.5);
+            transform: translateY(-3px); box-shadow: 0 8px 30px rgba(125, 207, 255, 0.5); 
         }
 
         .code-box {
             background: linear-gradient(135deg, #16161e 0%, #1f2029 100%);
-            padding: 18px 22px;
-            border-radius: 12px;
-            border-left: 4px solid var(--accent-pink);
-            color: var(--text-bright);
-            font-family: 'JetBrains Mono', 'Fira Code', monospace;
-            margin: 18px 0;
-            font-size: 0.9rem;
-            overflow-x: auto;
-            position: relative;
+            padding: 18px 22px; border-radius: 12px; border-left: 4px solid var(--accent-pink);
+            color: var(--text-bright); font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            margin: 18px 0; font-size: 0.9rem; overflow-x: auto; position: relative;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
-        
         .code-box .path-label {
-            position: absolute;
-            top: -10px; right: 15px;
-            background: var(--bg-card);
-            padding: 3px 10px;
-            font-size: 0.75rem;
-            color: var(--accent-cyan);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            font-weight: 600;
+            position: absolute; top: -10px; right: 15px; background: var(--bg-card);
+            padding: 3px 10px; font-size: 0.75rem; color: var(--accent-cyan);
+            border: 1px solid var(--border); border-radius: 6px; font-weight: 600;
         }
 
         .steps { counter-reset: step; margin: 25px 0; }
-        
         .step {
-            position: relative;
-            padding-left: 55px;
-            margin-bottom: 25px;
-            min-height: 45px;
-            padding-top: 5px;
+            position: relative; padding-left: 55px; margin-bottom: 25px; min-height: 45px; padding-top: 5px;
         }
-        
         .step::before {
-            counter-increment: step;
-            content: counter(step);
-            position: absolute;
-            left: 0; top: 0;
-            width: 38px; height: 38px;
-            background: linear-gradient(135deg, var(--accent-magenta) 0%, #9d79e8 100%);
-            color: var(--bg-main);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1rem;
-            box-shadow: 0 4px 15px rgba(187, 154, 247, 0.4);
+            counter-increment: step; content: counter(step); position: absolute; left: 0; top: 0;
+            width: 38px; height: 38px; background: linear-gradient(135deg, var(--accent-magenta) 0%, #9d79e8 100%);
+            color: var(--bg-main); border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            font-weight: bold; font-size: 1rem; box-shadow: 0 4px 15px rgba(187, 154, 247, 0.4);
         }
-        
         .step h4 { margin: 0 0 8px; color: var(--text-bright); font-size: 1.05rem; font-weight: 600; }
         .step p { margin: 0; font-size: 0.95rem; line-height: 1.6; }
 
         .meme-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 15px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px; margin-top: 15px;
         }
-        
         .meme-card {
             background: linear-gradient(135deg, rgba(0,0,0,0.25) 0%, rgba(30, 30, 46, 0.5) 100%);
-            border-radius: 16px;
-            padding: 18px;
-            border: 1px solid var(--border);
-            text-align: center;
-            transition: all 0.3s ease;
+            border-radius: 16px; padding: 18px; border: 1px solid var(--border);
+            text-align: center; transition: all 0.3s ease;
         }
-        
         .meme-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-magenta);
+            transform: translateY(-5px); border-color: var(--accent-magenta);
             box-shadow: 0 10px 30px rgba(187, 154, 247, 0.2);
         }
-        
-        .meme-card img {
-            border-radius: 12px;
-            max-height: 200px;
-            object-fit: cover;
-            width: 100%;
-        }
-        
+        .meme-card img { border-radius: 12px; max-height: 200px; object-fit: cover; width: 100%; }
         .meme-card p { font-size: 0.95rem; color: var(--text-bright); margin-top: 12px; line-height: 1.5; }
 
         .visuals-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 18px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px;
         }
-        
         .visuals-grid .img-container { margin: 0; transition: transform 0.3s ease; }
         .visuals-grid .img-container:hover { transform: translateY(-5px); }
 
         .compat-header {
             background: linear-gradient(135deg, rgba(187, 154, 247, 0.1) 0%, rgba(125, 207, 255, 0.05) 100%);
-            border: 1px solid rgba(187, 154, 247, 0.3);
-            border-radius: 14px;
-            padding: 18px 24px;
-            margin: 25px 0;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(187, 154, 247, 0.1);
+            border: 1px solid rgba(187, 154, 247, 0.3); border-radius: 14px; padding: 18px 24px;
+            margin: 25px 0; text-align: center; box-shadow: 0 4px 15px rgba(187, 154, 247, 0.1);
         }
-        
         .compat-header a { color: var(--accent-cyan); text-decoration: none; font-weight: 600; position: relative; }
         .compat-header a::after {
             content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px;
@@ -457,47 +309,30 @@
         .compat-header a:hover::after { width: 100%; }
 
         .compat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 20px;
         }
-        
         .compat-item {
             background: linear-gradient(135deg, rgba(0,0,0,0.2) 0%, rgba(30, 30, 46, 0.4) 100%);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 18px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
+            border: 1px solid var(--border); border-radius: 14px; padding: 18px; cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden;
         }
-        
         .compat-item::before {
             content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
             background: linear-gradient(180deg, var(--accent-cyan), var(--accent-magenta));
             transform: scaleY(0); transition: transform 0.3s ease;
         }
-        
         .compat-item:hover::before { transform: scaleY(1); }
         .compat-item:hover {
-            border-color: var(--accent-cyan);
-            transform: translateY(-3px);
-            background: rgba(125, 207, 255, 0.06);
-            box-shadow: 0 8px 25px rgba(125, 207, 255, 0.15);
+            border-color: var(--accent-cyan); transform: translateY(-3px);
+            background: rgba(125, 207, 255, 0.06); box-shadow: 0 8px 25px rgba(125, 207, 255, 0.15);
         }
-        
         .compat-item h4 { margin: 0 0 8px; color: var(--text-bright); font-size: 1rem; font-weight: 600; }
         .compat-item p { margin: 0; font-size: 0.9rem; opacity: 0.85; line-height: 1.5; }
-        
         .compat-item.active {
-            border-color: var(--accent-green);
-            background: rgba(158, 206, 106, 0.1);
+            border-color: var(--accent-green); background: rgba(158, 206, 106, 0.1);
             box-shadow: 0 0 20px rgba(158, 206, 106, 0.2);
         }
         .compat-item.active::before { background: var(--accent-green); transform: scaleY(1); }
-        
         .compat-item.full-support::after {
             content: '✓'; position: absolute; top: 12px; right: 15px;
             color: var(--accent-green); font-weight: bold; font-size: 1.1rem;
@@ -509,11 +344,8 @@
         }
 
         .path-section {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 2px dashed var(--border);
+            margin-top: 25px; padding-top: 20px; border-top: 2px dashed var(--border);
         }
-        
         .path-section h4 { margin: 0 0 12px; color: var(--text-bright); font-size: 1rem; font-weight: 600; }
         .path-hint {
             font-size: 0.9rem; opacity: 0.75; margin-top: 8px; font-style: italic;
@@ -521,17 +353,11 @@
         }
 
         footer { 
-            text-align: center; 
-            padding: 35px; 
-            color: #414868; 
-            font-family: monospace; 
-            font-size: 0.85rem;
-            border-top: 1px solid var(--border);
-            margin-top: 25px;
+            text-align: center; padding: 35px; color: #414868; font-family: monospace; font-size: 0.85rem;
+            border-top: 1px solid var(--border); margin-top: 25px;
             background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.2) 100%);
             border-radius: 16px 16px 0 0;
         }
-        
         footer a { color: var(--accent-cyan); text-decoration: none; position: relative; }
         footer a::after {
             content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px;
@@ -555,7 +381,6 @@
         @media (prefers-reduced-motion: reduce) {
             * { transition: none !important; animation: none !important; }
         }
-        
         a:focus-visible, button:focus-visible { outline: 2px solid var(--accent-cyan); outline-offset: 2px; }
         
         ::-webkit-scrollbar { width: 10px; height: 10px; }
@@ -570,7 +395,7 @@
         <div class="sidebar-header">
             <img src="assets/logo.png" alt="ClassicGO Logo" class="logo">
             <h1>ClassicGO</h1>
-            <button class="lang-toggle" id="langToggle" title="Switch language"> RU / EN</button>
+            <button class="lang-toggle" id="langToggle" title="Switch language">🌐 RU / EN</button>
         </div>
         <ul class="nav-menu">
             <li class="nav-item"><a href="#download" data-i18n="nav-download" class="active">📥 Загрузка</a></li>
@@ -589,14 +414,31 @@
         </section>
 
         <section id="download" class="card">
-            <h2 data-i18n="download-title">Source Retrieval</h2>
-            <p data-i18n="download-desc">Скачайте архив с кастомным интерфейсом:</p>
-            <a href="https://github.com/sanyaleks2012-lab/ClassicGO/raw/refs/heads/main/oldhud.7z" class="download-btn" download data-i18n="download-btn">Скачать oldhud.7z</a>
-            <p style="font-size: 0.85rem; opacity: 0.8; margin-top: 15px;">
-                <span data-i18n="download-sha">SHA-256:</span> <code style="background: rgba(0,0,0,0.3); padding: 3px 8px; border-radius: 4px;">a1b2c3d4...</code> <span data-i18n="download-sha-note">(проверяйте после скачивания)</span>
-            </p>
+            <h2 data-i18n="download-title">Automatic Installation</h2>
+            <p data-i18n="download-desc">Скачайте автоматический установщик, который сделает всё за вас:</p>
             
-            <div class="img-container">
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px;">
+                <div style="flex: 1; min-width: 200px;">
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: var(--text-main);">
+                        <li style="margin-bottom: 8px;">✅ Меню выбора версии CS:GO</li>
+                        <li style="margin-bottom: 8px;">✅ Скачивание только папки <code>setup</code></li>
+                        <li style="margin-bottom: 8px;">✅ Копирование <code>videos</code> в <code>panorama/custom</code></li>
+                        <li style="margin-bottom: 8px;">✅ Подробный лог установки</li>
+                    </ul>
+                </div>
+                <div style="flex: 1; min-width: 200px;">
+                    <div class="info-box" style="background: rgba(247, 118, 142, 0.1); border: 1px solid var(--accent-pink); padding: 15px; border-radius: 8px; font-size: 0.85rem;">
+                        <strong data-i18n="download-warning-title">⚠️ Важно:</strong><br>
+                        <span data-i18n="download-warning">Запустите файл от имени администратора (ПКМ → Run as Administrator), иначе установка в Program Files будет заблокирована.</span>
+                    </div>
+                </div>
+            </div>
+
+            <a href="https://github.com/sanyaleks2012-lab/ClassicGO/raw/main/setupMotherGabenNewel.bat" class="download-btn" download data-i18n="download-btn">
+                ⬇️ Скачать setupMotherGabenNewel.bat
+            </a>
+            
+            <div class="img-container" style="margin-top: 20px;">
                 <img src="assets/HeadUpDisplay_demo.JPG" alt="HUD Demo">
             </div>
             <p style="text-align: center; font-size: 0.9rem; opacity: 0.8;" data-i18n="download-img-desc">Пример итогового HUD в игре</p>
@@ -736,7 +578,6 @@
     </main>
 
     <script>
-        // I18n System
         const i18n = {
             current: 'ru',
             supported: ['ru', 'en'],
@@ -744,16 +585,16 @@
                 en: {
                     "hero-title": "ClassicGO",
                     "hero-subtitle": "ClassicGO Docs",
-                    "nav-download": "📥 Download",
-                    "nav-install": "🗂 Installation",
-                    "nav-migi": "️ MIGI Setup",
+                    "nav-download": " Download",
+                    "nav-install": " Installation",
+                    "nav-migi": "⚙️ MIGI Setup",
                     "nav-memes": "😂 Memes",
                     "nav-visuals": "🖼 Gallery",
-                    "download-title": "Source Retrieval",
-                    "download-desc": "Download the archive with the custom interface:",
-                    "download-btn": "Download oldhud.7z",
-                    "download-sha": "SHA-256:",
-                    "download-sha-note": "(verify after download)",
+                    "download-title": "Automatic Installation",
+                    "download-desc": "Download the auto-installer that does everything for you:",
+                    "download-warning-title": "⚠️ Important:",
+                    "download-warning": "Run the file as Administrator (Right Click → Run as Administrator), otherwise installation to Program Files will be blocked.",
+                    "download-btn": "⬇️ Download setupMotherGabenNewel.bat",
                     "download-img-desc": "Example of the final HUD in-game",
                     "install-title": "Directory Setup",
                     "install-desc": "Select your CS:GO version to see the installation path:",
@@ -797,7 +638,6 @@
                 }
             },
             init() {
-                // Auto-detect browser language
                 const browserLang = navigator.language || navigator.userLanguage || 'ru';
                 const savedLang = localStorage.getItem('classicgo-lang');
                 this.current = savedLang || (browserLang.startsWith('en') ? 'en' : 'ru');
@@ -806,17 +646,17 @@
                 this.updatePathDisplay();
             },
             apply() {
+                const toggle = document.getElementById('langToggle');
                 if (this.current === 'ru') {
-                    document.getElementById('langToggle').textContent = '🌐 RU / EN';
-                    return; // HTML defaults to RU
+                    toggle.textContent = '🌐 RU / EN';
+                    return;
                 }
-                document.getElementById('langToggle').textContent = '🌐 EN / RU';
+                toggle.textContent = '🌐 EN / RU';
                 const dict = this.data.en;
                 document.querySelectorAll('[data-i18n]').forEach(el => {
                     const key = el.getAttribute('data-i18n');
                     if (dict[key]) el.innerHTML = dict[key];
                 });
-                // Update active compat card hint
                 this.updatePathDisplay();
             },
             updatePathDisplay() {
@@ -829,8 +669,11 @@
                 const newPath = activeCard.dataset[pathKey] || '';
                 const newHint = activeCard.dataset[hintKey] || '';
                 
-                document.getElementById('install-path').textContent = newPath || (this.current === 'en' ? 'Find the folder with csgo.exe in your build' : 'Найдите папку с csgo.exe в вашей сборке');
-                document.getElementById('path-hint').textContent = newHint;
+                const pathEl = document.getElementById('install-path');
+                const hintEl = document.getElementById('path-hint');
+                
+                pathEl.textContent = newPath || (this.current === 'en' ? 'Find the folder with csgo.exe in your build' : 'Найдите папку с csgo.exe в вашей сборке');
+                hintEl.textContent = newHint;
             },
             toggle() {
                 this.current = this.current === 'ru' ? 'en' : 'ru';
@@ -844,10 +687,8 @@
         document.addEventListener('DOMContentLoaded', () => {
             i18n.init();
 
-            // Language Toggle Button
             document.getElementById('langToggle').addEventListener('click', () => i18n.toggle());
 
-            // Scroll Spy
             const sections = document.querySelectorAll('section[id]');
             const navLinks = document.querySelectorAll('.nav-menu a');
             const observer = new IntersectionObserver((entries) => {
@@ -870,7 +711,6 @@
                 });
             });
 
-            // Compatibility Cards
             document.querySelectorAll('.compat-item').forEach(item => {
                 item.addEventListener('click', function() {
                     document.querySelectorAll('.compat-item').forEach(i => {
