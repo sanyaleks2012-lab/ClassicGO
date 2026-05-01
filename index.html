@@ -399,6 +399,7 @@
         </div>
         <ul class="nav-menu">
             <li class="nav-item"><a href="#download" data-i18n="nav-download" class="active">📥 Загрузка</a></li>
+            <li class="nav-item"><a href="#contents" data-i18n="nav-contents">📦 Что внутри?</a></li>
             <li class="nav-item"><a href="#install" data-i18n="nav-install">🗂 Установка</a></li>
             <li class="nav-item"><a href="#migi-setup" data-i18n="nav-migi">⚙️ MIGI Setup</a></li>
             <li class="nav-item"><a href="#memes" data-i18n="nav-memes">😂 Мемы</a></li>
@@ -429,12 +430,16 @@
                 <div style="flex: 1; min-width: 200px;">
                     <div class="info-box" style="background: rgba(247, 118, 142, 0.1); border: 1px solid var(--accent-pink); padding: 15px; border-radius: 8px; font-size: 0.85rem;">
                         <strong data-i18n="download-warning-title">⚠️ Важно:</strong><br>
-                        <span data-i18n="download-warning">Запустите файл от имени администратора (ПКМ → Run as Administrator), иначе установка в Program Files будет заблокирована.</span>
+                        <span data-i18n="download-warning">ПКМ по кнопке → "Сохранить ссылку как..." (браузеры показывают .bat файлы вместо скачивания)</span>
                     </div>
                 </div>
             </div>
 
-            <a href="https://github.com/sanyaleks2012-lab/ClassicGO/raw/main/setupMotherGabenNewel.bat" class="download-btn" download data-i18n="download-btn">
+            <a href="https://raw.githubusercontent.com/sanyaleks2012-lab/ClassicGO/main/setupMotherGabenNewel.bat" 
+               class="download-btn" 
+               target="_blank"
+               download
+               data-i18n="download-btn">
                 ⬇️ Скачать setupMotherGabenNewel.bat
             </a>
             
@@ -442,6 +447,97 @@
                 <img src="assets/HeadUpDisplay_demo.JPG" alt="HUD Demo">
             </div>
             <p style="text-align: center; font-size: 0.9rem; opacity: 0.8;" data-i18n="download-img-desc">Пример итогового HUD в игре</p>
+        </section>
+
+        <section id="contents" class="card">
+            <h2 data-i18n="contents-title">📦 Что внутри установщика?</h2>
+            <p data-i18n="contents-desc">Полная расшифровка всех файлов для вашего спокойствия:</p>
+            
+            <div style="display: grid; gap: 15px; margin-top: 20px;">
+                <div style="background: rgba(125, 207, 255, 0.05); border: 1px solid var(--border); border-radius: 12px; padding: 18px;">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+                        <span style="font-size: 1.5rem;">🎨</span>
+                        <h3 style="margin: 0; color: var(--accent-cyan); font-size: 1.1rem;" data-i18n="content-theme-title">Custom Theme (panorama/)</h3>
+                    </div>
+                    <p style="margin: 0 0 10px 40px; font-size: 0.9rem; opacity: 0.9;" data-i18n="content-theme-desc">
+                        Кастомный интерфейс: цвета, шрифты, иконки, анимации. <strong>Безопасно</strong> — только визуальные изменения.
+                    </p>
+                    <div style="margin-left: 40px; font-size: 0.85rem; opacity: 0.7; font-family: monospace;">
+                        <code>csgo/panorama/custom/</code>, <code>theme/</code>
+                    </div>
+                </div>
+
+                <div style="background: rgba(158, 206, 106, 0.05); border: 1px solid var(--border); border-radius: 12px; padding: 18px;">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+                        <span style="font-size: 1.5rem;">🔧</span>
+                        <h3 style="margin: 0; color: var(--accent-green); font-size: 1.1rem;" data-i18n="content-migi-title">MIGI Builder</h3>
+                    </div>
+                    <p style="margin: 0 0 10px 40px; font-size: 0.9rem; opacity: 0.9;" data-i18n="content-migi-desc">
+                        Инструмент для сборки и применения настроек. <strong>Открытый исходный код</strong> — можно проверить на GitHub.
+                    </p>
+                    <div style="margin-left: 40px; font-size: 0.85rem; opacity: 0.7; font-family: monospace;">
+                        <code>migi.exe</code>, <code>migi/</code>
+                    </div>
+                </div>
+
+                <div style="background: rgba(187, 154, 247, 0.05); border: 1px solid var(--border); border-radius: 12px; padding: 18px;">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+                        <span style="font-size: 1.5rem;">🎮</span>
+                        <h3 style="margin: 0; color: var(--accent-magenta); font-size: 1.1rem;" data-i18n="content-gc-title">CSGO_GC Tools</h3>
+                    </div>
+                    <p style="margin: 0 0 10px 40px; font-size: 0.9rem; opacity: 0.9;" data-i18n="content-gc-desc">
+                        Библиотеки для работы с игрой (hooks, bypass pure server). <strong>Необходимы</strong> для кастомизации. 
+                        <a href="https://github.com/mikkokko/csgo_gc" target="_blank" style="color: var(--accent-cyan);">Проверенный проект</a>.
+                    </p>
+                    <div style="margin-left: 40px; font-size: 0.85rem; opacity: 0.7; font-family: monospace;">
+                        <code>csgo_gc/path/</code> (AfxHookSource.dll, cvar-unhide.dll, server_pure_bypass.dll)
+                    </div>
+                </div>
+
+                <div style="background: rgba(247, 118, 142, 0.05); border: 1px solid var(--border); border-radius: 12px; padding: 18px;">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+                        <span style="font-size: 1.5rem;">🎵</span>
+                        <h3 style="margin: 0; color: var(--accent-pink); font-size: 1.1rem;" data-i18n="content-addons-title">Custom Addons</h3>
+                    </div>
+                    <p style="margin: 0 0 10px 40px; font-size: 0.9rem; opacity: 0.9;" data-i18n="content-addons-desc">
+                        Звуки оружия, иконки, анимации инвентаря. <strong>Только косметика</strong> — не влияет на геймплей.
+                    </p>
+                    <div style="margin-left: 40px; font-size: 0.85rem; opacity: 0.7; font-family: monospace;">
+                        <code>csgo/addons/</code> (p_oldweapon_sound, p_icon_legacy, p_scaleform)
+                    </div>
+                </div>
+
+                <div style="background: rgba(224, 175, 104, 0.05); border: 1px solid var(--border); border-radius: 12px; padding: 18px;">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+                        <span style="font-size: 1.5rem;">🎬</span>
+                        <h3 style="margin: 0; color: var(--accent-yellow); font-size: 1.1rem;" data-i18n="content-videos-title">Videos</h3>
+                    </div>
+                    <p style="margin: 0 0 10px 40px; font-size: 0.9rem; opacity: 0.9;" data-i18n="content-videos-desc">
+                        Видео-фоны для меню. Копируются в <code>panorama/custom/</code>. <strong>Безопасны</strong> — просто MP4 файлы.
+                    </p>
+                    <div style="margin-left: 40px; font-size: 0.85rem; opacity: 0.7; font-family: monospace;">
+                        <code>videos/</code> → <code>csgo/panorama/custom/</code>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 25px; padding: 20px; background: rgba(158, 206, 106, 0.1); border: 2px solid var(--accent-green); border-radius: 12px; text-align: center;">
+                <h3 style="margin: 0 0 10px; color: var(--accent-green); font-size: 1.2rem;" data-i18n="content-safety-title">✅ Безопасность</h3>
+                <p style="margin: 0; font-size: 0.95rem;" data-i18n="content-safety-desc">
+                    <strong>Никаких вирусов, стилеров или майнеров.</strong> Все файлы можно проверить на VirusTotal. 
+                    Исходный код открыт на GitHub. Если боитесь — соберите сами из репозитория!
+                </p>
+            </div>
+
+            <div style="margin-top: 15px; padding: 15px; background: rgba(247, 118, 142, 0.08); border: 1px dashed var(--accent-pink); border-radius: 10px; font-size: 0.9rem;">
+                <strong style="color: var(--accent-pink);" data-i18n="content-warning-title">⚠️ Важно понимать:</strong>
+                <ul style="margin: 10px 0 0 20px; line-height: 1.8;">
+                    <li data-i18n="content-warning-1">DLL-файлы (AfxHookSource, cvar-unhide) — это <strong>не вирусы</strong>, а легитимные инструменты для модификации игры</li>
+                    <li data-i18n="content-warning-2">Антивирусы могут ругаться на <code>server_pure_bypass.dll</code> — это ложное срабатывание (heuristic detection)</li>
+                    <li data-i18n="content-warning-3">Установщик <strong>не трогает</strong> системные файлы Windows, только папку CS:GO</li>
+                    <li data-i18n="content-warning-4">Вы можете <strong>в любой момент удалить</strong> все изменения — просто удалите папку <code>csgo</code> и установите игру заново</li>
+                </ul>
+            </div>
         </section>
 
         <section id="install" class="card">
@@ -585,17 +681,37 @@
                 en: {
                     "hero-title": "ClassicGO",
                     "hero-subtitle": "ClassicGO Docs",
-                    "nav-download": " Download",
-                    "nav-install": " Installation",
+                    "nav-download": "📥 Download",
+                    "nav-contents": "📦 What's inside?",
+                    "nav-install": "🗂 Installation",
                     "nav-migi": "⚙️ MIGI Setup",
                     "nav-memes": "😂 Memes",
                     "nav-visuals": "🖼 Gallery",
                     "download-title": "Automatic Installation",
                     "download-desc": "Download the auto-installer that does everything for you:",
                     "download-warning-title": "⚠️ Important:",
-                    "download-warning": "Run the file as Administrator (Right Click → Run as Administrator), otherwise installation to Program Files will be blocked.",
+                    "download-warning": "Right-click the button → \"Save link as...\" (browsers display .bat files instead of downloading)",
                     "download-btn": "⬇️ Download setupMotherGabenNewel.bat",
                     "download-img-desc": "Example of the final HUD in-game",
+                    "contents-title": "📦 What's inside the installer?",
+                    "contents-desc": "Full breakdown of all files for your peace of mind:",
+                    "content-theme-title": "Custom Theme (panorama/)",
+                    "content-theme-desc": "Custom interface: colors, fonts, icons, animations. <strong>Safe</strong> — visual changes only.",
+                    "content-migi-title": "MIGI Builder",
+                    "content-migi-desc": "Tool for building and applying settings. <strong>Open source</strong> — you can check it on GitHub.",
+                    "content-gc-title": "CSGO_GC Tools",
+                    "content-gc-desc": "Libraries for working with the game (hooks, pure server bypass). <strong>Required</strong> for customization. <a href=\"https://github.com/mikkokko/csgo_gc\" target=\"_blank\">Trusted project</a>.",
+                    "content-addons-title": "Custom Addons",
+                    "content-addons-desc": "Weapon sounds, icons, inventory animations. <strong>Cosmetic only</strong> — doesn't affect gameplay.",
+                    "content-videos-title": "Videos",
+                    "content-videos-desc": "Video backgrounds for menu. Copied to <code>panorama/custom/</code>. <strong>Safe</strong> — just MP4 files.",
+                    "content-safety-title": "✅ Safety",
+                    "content-safety-desc": "<strong>No viruses, stealers, or miners.</strong> All files can be checked on VirusTotal. Source code is open on GitHub. If you're afraid — build it yourself from the repository!",
+                    "content-warning-title": "⚠️ Important to understand:",
+                    "content-warning-1": "DLL files (AfxHookSource, cvar-unhide) are <strong>not viruses</strong>, but legitimate tools for game modification",
+                    "content-warning-2": "Antivirus may flag <code>server_pure_bypass.dll</code> — this is a false positive (heuristic detection)",
+                    "content-warning-3": "The installer <strong>does not touch</strong> Windows system files, only the CS:GO folder",
+                    "content-warning-4": "You can <strong>uninstall anytime</strong> — just delete the <code>csgo</code> folder and reinstall the game",
                     "install-title": "Directory Setup",
                     "install-desc": "Select your CS:GO version to see the installation path:",
                     "install-req": "<strong>Requirement:</strong> works only with the project",
