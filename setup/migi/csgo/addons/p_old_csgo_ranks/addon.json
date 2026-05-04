@@ -1,0 +1,18 @@
+{
+	"name": "Old CS:GO Ranks",
+	"author": "sashie",
+	"social": "https://steamcommunity.com/id/sashie",
+	"authors": 
+	[
+		{
+			"name": "sashie", 
+			"social": "https://www.youtube.com/@sashie/", 
+			"role": "Did the whole thing"
+		},
+		{
+			"name": "Valve", 
+			"role": "Original assets"
+		}
+	],
+	"replacement": "Ranks"
+}

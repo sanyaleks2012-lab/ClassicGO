@@ -1,0 +1,15 @@
+{
+    "text-color": "#a9b1d6",
+    "text-header": "#7aa2f7",
+    "text-select": "#33467c",
+    "text-strikethrough": "#565f89",
+    "text-placeholder": "#565f89",
+    "text-disabled": "#24283b",
+    "text-disabled-shadow": "#414868",
+    "border-lite": "#414868",
+    "border-dark": "#1a1b26",
+    "border-focus-lite": "#bb9af7", 
+    "border-focus-dark": "#7aa2f7",
+    "background-lite": "#24283b",
+    "background-dark": "#1a1b26"
+}
